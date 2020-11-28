@@ -37,14 +37,14 @@ def promote(update: Update, context: CallbackContext) -> str:
 
     if not (promoter.can_promote_members or
             promoter.status == "creator") and not user.id in DRAGONS:
-        message.reply_text("You don't have the necessary rights to do that!")
+        message.reply_text("Lazımi səlahiyyətlərin yoxdur!")
         return
 
     user_id = extract_user(message, args)
 
     if not user_id:
         message.reply_text(
-            "You don't seem to be referring to a user or the ID specified is incorrect.."
+            "Bir istifadəçiyə istinad etmirsiniz.."
         )
         return
 
@@ -55,12 +55,12 @@ def promote(update: Update, context: CallbackContext) -> str:
 
     if user_member.status == 'administrator' or user_member.status == 'creator':
         message.reply_text(
-            "How am I meant to promote someone that's already an admin?")
+            "Onsuz da admin olan birini necə admin edə bilərəmki?")
         return
 
     if user_id == bot.id:
         message.reply_text(
-            "I can't promote myself! Get an admin to do it for me.")
+            "Özümü admin edə bilmərəm! Admin edəcəyim bir user ver.")
         return
 
     # set same perms as bot - bot can't assign higher perms than itself!
@@ -81,14 +81,14 @@ def promote(update: Update, context: CallbackContext) -> str:
     except BadRequest as err:
         if err.message == "User_not_mutual_contact":
             message.reply_text(
-                "I can't promote someone who isn't in the group.")
+                "Qrupda olmayan birini admin edə bilmərəm.")
         else:
-            message.reply_text("An error occured while promoting.")
+            message.reply_text("Bir xəta yarandı.")
         return
 
     bot.sendMessage(
         chat.id,
-        f"Sucessfully promoted <b>{user_member.user.first_name or user_id}</b>!",
+        f"<b>{user_member.user.first_name or user_id}</b> Admin Edildi💛!",
         parse_mode=ParseMode.HTML)
 
     log_message = (
@@ -118,7 +118,7 @@ def demote(update: Update, context: CallbackContext) -> str:
     user_id = extract_user(message, args)
     if not user_id:
         message.reply_text(
-            "You don't seem to be referring to a user or the ID specified is incorrect.."
+            "Bir istifadəçiyə istinad etmirsiniz.."
         )
         return
 
@@ -129,16 +129,16 @@ def demote(update: Update, context: CallbackContext) -> str:
 
     if user_member.status == 'creator':
         message.reply_text(
-            "This person CREATED the chat, how would I demote them?")
+            "Nə, Qrup yaradıcısının adminliyini almaq mümkün deyil?")
         return
 
     if not user_member.status == 'administrator':
-        message.reply_text("Can't demote what wasn't promoted!")
+        message.reply_text("Admin olmayan birinin adminliyini almaq mümkün deyil!")
         return
 
     if user_id == bot.id:
         message.reply_text(
-            "I can't demote myself! Get an admin to do it for me.")
+            "Öz adminliyimi ala bilmərəm! Bunu başqa admin edə bilər.")
         return
 
     try:
@@ -156,8 +156,8 @@ def demote(update: Update, context: CallbackContext) -> str:
 
         bot.sendMessage(
             chat.id,
-            f"Sucessfully demoted <b>{user_member.user.first_name or user_id}</b>!",
-            parse_mode=ParseMode.HTML)
+            f" <b>{user_member.user.first_name or user_id}</b> istifadəçisinin adminliyini aldım!",
+            parse_mode=Parsemode.HTML)
 
         log_message = (
             f"<b>{html.escape(chat.title)}:</b>\n"
@@ -169,8 +169,8 @@ def demote(update: Update, context: CallbackContext) -> str:
         return log_message
     except BadRequest:
         message.reply_text(
-            "Could not demote. I might not be admin, or the admin status was appointed by another"
-            " user, so I can't act upon them!")
+            "Adminliyini almaq mümkün olmadı. Yəqin ki admin deyiləm, və ya adminliyini başqası verib."
+            " Əməliyyat uğursuz oldu!")
         return
 
 
@@ -182,7 +182,7 @@ def refresh_admin(update, _):
     except KeyError:
         pass
 
-    update.effective_message.reply_text("Admins cache refreshed!")
+    update.effective_message.reply_text("Admin siyahısı yeniləndi!")
 
 
 @run_async
@@ -205,47 +205,47 @@ def set_title(update: Update, context: CallbackContext):
 
     if not user_id:
         message.reply_text(
-            "You don't seem to be referring to a user or the ID specified is incorrect.."
+            "Bir istifadəçiyə istinad etmirsiniz.."
         )
         return
 
     if user_member.status == 'creator':
         message.reply_text(
-            "This person CREATED the chat, how can i set custom title for him?")
+             "Bu şəxs qrup yaradıcısıdır və mən onun adminlik başlığını dəyişə bilmərəm?")
         return
 
     if not user_member.status == 'administrator':
         message.reply_text(
-            "Can't set title for non-admins!\nPromote them first to set custom title!"
+            "Admin olmayanlara başlıq qoymaq mümkün deyil!\nİlk öncə onları admin edin!"
         )
         return
 
     if user_id == bot.id:
         message.reply_text(
-            "I can't set my own title myself! Get the one who made me admin to do it for me."
+            "Öz başlığımı dəyişə bilmərəm! Bunu mənim üçün başqası edə bilər."
         )
         return
 
     if not title:
-        message.reply_text("Setting blank title doesn't do anything!")
+        message.reply_text("Axı bir başlıq verməmisən!")
         return
 
     if len(title) > 16:
         message.reply_text(
-            "The title length is longer than 16 characters.\nTruncating it to 16 characters."
+            "Başlıq 16 simvoldan çox ola bilməz."
         )
 
     try:
         bot.setChatAdministratorCustomTitle(chat.id, user_id, title)
     except BadRequest:
         message.reply_text(
-            "I can't set custom title for admins that I didn't promote!")
+            "Mən sadəcə adminlik hüququnu özüm verdiyim şəxslərin başlığını dəyişə bilərəm!")
         return
 
     bot.sendMessage(
         chat.id,
-        f"Sucessfully set title for <code>{user_member.user.first_name or user_id}</code> "
-        f"to <code>{html.escape(title[:16])}</code>!",
+        f"<code>{user_member.user.first_name or user_id}</code> adminin başlığı "
+        f"<code>{html.escape(title[:16])}</code> olaraq ayarlandı!",
         parse_mode=ParseMode.HTML)
 
 
@@ -332,11 +332,11 @@ def invite(update: Update, context: CallbackContext):
             update.effective_message.reply_text(invitelink)
         else:
             update.effective_message.reply_text(
-                "I don't have access to the invite link, try changing my permissions!"
+                "Dəvət linkini gətirə bilmədim! Səlahiyyətlərimi nəzərdən keçir."
             )
     else:
         update.effective_message.reply_text(
-            "I can only give you invite links for supergroups and channels, sorry!"
+            "Mən sənə sadəcə superqrup və kanalların dəvət linkini verə bilərəm!"
         )
 
 
@@ -350,7 +350,7 @@ def adminlist(update, context):
 
     if update.effective_message.chat.type == "private":
         send_message(update.effective_message,
-                     "This command only works in Groups.")
+                     "Bu əmr qruplarda işləyir.")
         return
 
     chat = update.effective_chat
@@ -359,13 +359,13 @@ def adminlist(update, context):
 
     try:
         msg = update.effective_message.reply_text(
-            'Fetching group admins...', parse_mode=ParseMode.HTML)
+            'Admin siyahısı gətirilir...', parse_mode=ParseMode.HTML)
     except BadRequest:
         msg = update.effective_message.reply_text(
-            'Fetching group admins...', quote=False, parse_mode=ParseMode.HTML)
+            'Admin siyahısı gətirilir...', quote=False, parse_mode=ParseMode.HTML)
 
     administrators = bot.getChatAdministrators(chat_id)
-    text = "Admins in <b>{}</b>:".format(
+    text = "<b>{}</b> qrupundakı adminlər:".format(
         html.escape(update.effective_chat.title))
 
     bot_admin_list = []
@@ -376,7 +376,7 @@ def adminlist(update, context):
         custom_title = admin.custom_title
 
         if user.first_name == '':
-            name = "☠ Deleted Account"
+            name = "☠ Silinən Hesab"
         else:
             name = "{}".format(
                 mention_html(
@@ -398,7 +398,7 @@ def adminlist(update, context):
             if custom_title:
                 text += f"<code> ┗━ {html.escape(custom_title)}</code>\n"
 
-    text += "\n🔱 Admins:"
+    text += "\n🔱 Adminlər:"
 
     custom_admin_list = {}
     normal_admin_list = []
@@ -409,7 +409,7 @@ def adminlist(update, context):
         custom_title = admin.custom_title
 
         if user.first_name == '':
-            name = "☠ Deleted Account"
+            name = "☠ Silinən Hesab"
         else:
             name = "{}".format(
                 mention_html(
@@ -443,7 +443,7 @@ def adminlist(update, context):
             text += "\n<code> • </code>{}".format(admin)
         text += "\n"
 
-    text += "\n🤖 Bots:"
+    text += "\n🤖 Botlar:"
     for each_bot in bot_admin_list:
         text += "\n<code> • </code>{}".format(each_bot)
 
@@ -454,16 +454,16 @@ def adminlist(update, context):
 
 
 __help__ = """
- • `/admins`*:* list of admins in the chat
+ • `/admins`*:* qrupdakı adminlərin siyahısını verir
 
-*Admins only:*
- • `/pin`*:* silently pins the message replied to - add `'loud'` or `'notify'` to give notifs to users
- • `/unpin`*:* unpins the currently pinned message
- • `/invitelink`*:* gets invitelink
- • `/promote`*:* promotes the user replied to
- • `/demote`*:* demotes the user replied to
- • `/title <title here>`*:* sets a custom title for an admin that the bot promoted
- • `/admincache`*:* force refresh the admins list
+*Sadəcə adminlər:*
+ • `/pin`*:* bir mesajı səssizcə sabitləyir - bildiriş göndərmək üçün `'loud'` və ya `'notify'` əlavə edin
+ • `/unpin`*:* sabitli mesajın sabitini silir
+ • `/invitelink`*:* qrupun dəvət linkini verir
+ • `/promote`*:* istifadəçini admin edir
+ • `/demote`*:* istifadəçinin adminliyini alır
+ • `/title <başlıq>`*:* adminin adminlik tagını dəyişir
+ • `/admincache`*:* admin siyahısını yeniləyir
 """
 
 ADMINLIST_HANDLER = DisableAbleCommandHandler("admins", adminlist)
