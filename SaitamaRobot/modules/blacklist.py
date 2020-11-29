@@ -281,14 +281,14 @@ Zaman dəyərləri: 4m = 4 dəqiqə, 3h = 3 saat, 6d = 6 gün, 5w = 5 həftə.""
         else:
             send_message(
                 update.effective_message,
-                "I only understand: off/del/warn/ban/kick/mute/tban/tmute!",
+                "Mən yalnız off/del/warn/ban/kick/mute/tban/tmute başa düşürəm!",
             )
             return ""
         if conn:
-            text = "Changed blacklist mode: `{}` in *{}*!".format(
+            text = "Qara siyahı nodu yenisi ilə əvəz olundu\nKöhnə: `{}`\nYeni: *{}*!".format(
                 settypeblacklist, chat_name)
         else:
-            text = "Changed blacklist mode: `{}`!".format(settypeblacklist)
+            text = "Qara siyahı modu `{}` ilə əvəz olundu!".format(settypeblacklist)
         send_message(update.effective_message, text, parse_mode="markdown")
         return ("<b>{}:</b>\n"
                 "<b>Admin:</b> {}\n"
@@ -312,14 +312,14 @@ Zaman dəyərləri: 4m = 4 dəqiqə, 3h = 3 saat, 6d = 6 gün, 5w = 5 həftə.""
         elif getmode == 5:
             settypeblacklist = "ban"
         elif getmode == 6:
-            settypeblacklist = "temporarily ban for {}".format(getvalue)
+            settypeblacklist = "{} müddətlik ban".format(getvalue)
         elif getmode == 7:
-            settypeblacklist = "temporarily mute for {}".format(getvalue)
+            settypeblacklist = "{} müddətlik susdurma".format(getvalue)
         if conn:
-            text = "Current blacklistmode: *{}* in *{}*.".format(
-                settypeblacklist, chat_name)
+            text = "*{}* qrupunda qara siyahı modu: `{}`.".format(
+                chat_name, settypeblacklist)
         else:
-            text = "Current blacklistmode: *{}*.".format(settypeblacklist)
+            text = "Qara siyahı modu: *{}*.".format(settypeblacklist)
         send_message(
             update.effective_message, text, parse_mode=ParseMode.MARKDOWN)
     return ""
@@ -359,7 +359,7 @@ def del_blacklist(update, context):
                     warn(
                         update.effective_user,
                         chat,
-                        ("Using blacklisted trigger: {}".format(trigger)),
+                        ("Qara siyahıdakı sözdən istifadə olundu: {}".format(trigger)),
                         message,
                         update.effective_user,
                     )
@@ -373,7 +373,7 @@ def del_blacklist(update, context):
                     )
                     bot.sendMessage(
                         chat.id,
-                        f"Muted {user.first_name} for using Blacklisted word: {trigger}!",
+                        f"{user.first_name} Qara siyahıda olan: {trigger} işlətdiyinə görə susduruldu!",
                     )
                     return
                 elif getmode == 4:
@@ -382,7 +382,7 @@ def del_blacklist(update, context):
                     if res:
                         bot.sendMessage(
                             chat.id,
-                            f"Kicked {user.first_name} for using Blacklisted word: {trigger}!",
+                            f"{user.first_name} Qara siyahıda olan: {trigger} işlətdiyinə görə qrupdan atıldı!",
                         )
                     return
                 elif getmode == 5:
