@@ -390,7 +390,7 @@ def del_blacklist(update, context):
                     chat.kick_member(user.id)
                     bot.sendMessage(
                         chat.id,
-                        f"Banned {user.first_name} for using Blacklisted word: {trigger}",
+                        f"{user.first_name} Qara siyahıda olan: {trigger} işlətdiyinə görə banlandı",
                     )
                     return
                 elif getmode == 6:
@@ -399,7 +399,7 @@ def del_blacklist(update, context):
                     chat.kick_member(user.id, until_date=bantime)
                     bot.sendMessage(
                         chat.id,
-                        f"Banned {user.first_name} until '{value}' for using Blacklisted word: {trigger}!",
+                        f"{user.first_name} Qara siyahıda olan '{trigger}' işlətdiyinə görə banlandı. {value} qədər!",
                     )
                     return
                 elif getmode == 7:
@@ -413,7 +413,7 @@ def del_blacklist(update, context):
                     )
                     bot.sendMessage(
                         chat.id,
-                        f"Muted {user.first_name} until '{value}' for using Blacklisted word: {trigger}!",
+                        f"{user.first_name} Qara siyahıda olan '{trigger}' işlətdiyinə görə susduruldu. {value} qədər!",
                     )
                     return
             except BadRequest as excp:
@@ -437,28 +437,28 @@ def __migrate__(old_chat_id, new_chat_id):
 
 def __chat_settings__(chat_id, user_id):
     blacklisted = sql.num_blacklist_chat_filters(chat_id)
-    return "There are {} blacklisted words.".format(blacklisted)
+    return "{} ədəd söz(lər) qara siyahıdadır.".format(blacklisted)
 
 
 def __stats__():
-    return "• {} blacklist triggers, across {} chats.".format(
+    return "• {} ədəd qara siyahıda söz(lər) var, ümumi {} ədəd qrupda.".format(
         sql.num_blacklist_filters(), sql.num_blacklist_filter_chats())
 
 
-__mod_name__ = "Blacklists"
+__mod_name__ = "Qara Siyahı"
 
 __help__ = """
 
-Blacklists are used to stop certain triggers from being said in a group. Any time the trigger is mentioned, the message will immediately be deleted. A good combo is sometimes to pair this up with warn filters!
+Siz Qara siyahının köməyi ilə qrupda müəəyən aözləri istifadə edənləri cəzalandıra bilərsiniz!
 
-*NOTE*: Blacklists do not affect group admins.
+*QEYD*: Qara siyahı qrup adminlərinə təsir etmir.
 
- • `/blacklist`*:* View the current blacklisted words.
+ • `/blacklist`*:* qara siyahıdakı sözləri göstərir.
 
-Admin only:
- • `/addblacklist <triggers>`*:* Add a trigger to the blacklist. Each line is considered one trigger, so using different lines will allow you to add multiple triggers.
- • `/unblacklist <triggers>`*:* Remove triggers from the blacklist. Same newline logic applies here, so you can remove multiple triggers at once.
- • `/blacklistmode <off/del/warn/ban/kick/mute/tban/tmute>`*:* Action to perform when someone sends blacklisted words.
+Sadəcə adminlər:
+ • `/addblacklist <söz>`*:* Sözü qara siyahıya əlavə edir.
+ • `/unblacklist <söz>`*:* Sözü qara siyahıdan silir.
+ • `/blacklistmode <off/del/warn/ban/kick/mute/tban/tmute>`*:* Qara siyahıdakı sözləri istifadə edənlərə veriləcək cəza.
 
 """
 BLACKLIST_HANDLER = DisableAbleCommandHandler(
