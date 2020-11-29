@@ -129,28 +129,28 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
     user_id, reason = extract_user_and_text(message, args)
 
     if not user_id:
-        message.reply_text("I doubt that's a user.")
+        message.reply_text("Bunun bir istifadəçi olduğuna şübhə ilə yanaşıram.")
         return log_message
 
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
         if excp.message == "User not found":
-            message.reply_text("I can't seem to find this user.")
+            message.reply_text("Bu istifadəçini taba bilmədim.")
             return log_message
         else:
             raise
 
     if user_id == bot.id:
-        message.reply_text("I'm not gonna BAN myself, are you crazy?")
+        message.reply_text("Nə? Sən dəlisən?, mən özümü banlamıyacam!")
         return log_message
 
     if is_user_ban_protected(chat, user_id, member):
-        message.reply_text("I don't feel like it.")
+        message.reply_text("Bunu edə bilmərsən.")
         return log_message
 
     if not reason:
-        message.reply_text("You haven't specified a time to ban this user for!")
+        message.reply_text("Bu istifadəçini banlamaq üçün bir zaman vermədiniz!")
         return log_message
 
     split_reason = reason.split(None, 1)
@@ -173,15 +173,15 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
         f"<b>User:</b> {mention_html(member.user.id, html.escape(member.user.first_name))}\n"
         f"<b>Time:</b> {time_val}")
     if reason:
-        log += "\n<b>Reason:</b> {}".format(reason)
+        log += "\n<b>Səbəb:</b> {}".format(reason)
 
     try:
         chat.kick_member(user_id, until_date=bantime)
-        # bot.send_sticker(chat.id, BAN_STICKER)  # banhammer marie sticker
+        bot.send_sticker(chat.id, BAN_STICKER)  # banhammer marie sticker
         bot.sendMessage(
             chat.id,
-            f"Banned! User {mention_html(member.user.id, html.escape(member.user.first_name))} "
-            f"will be banned for {time_val}.",
+            f"Banlandı! {mention_html(member.user.id, html.escape(member.user.first_name))} "
+            f"{time_val} müddətlik banlandı.",
             parse_mode=ParseMode.HTML)
         return log
 
@@ -189,13 +189,13 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
         if excp.message == "Reply message not found":
             # Do not reply
             message.reply_text(
-                f"Banned! User will be banned for {time_val}.", quote=False)
+                f"Banlandı! İstifadəçi {time_val} müddətlik banlandı.", quote=False)
             return log
         else:
             LOGGER.warning(update)
             LOGGER.exception("ERROR banning user %s in chat %s (%s) due to %s",
                              user_id, chat.title, chat.id, excp.message)
-            message.reply_text("Well damn, I can't ban that user.")
+            message.reply_text("pf. Bu istifadəçini banlaya bilmirəm.")
 
     return log_message
 
@@ -216,32 +216,32 @@ def punch(update: Update, context: CallbackContext) -> str:
     user_id, reason = extract_user_and_text(message, args)
 
     if not user_id:
-        message.reply_text("I doubt that's a user.")
+        message.reply_text("Bunun bir idtifadəçi olduğuna şübhə ilə yanaşıram.")
         return log_message
 
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
         if excp.message == "User not found":
-            message.reply_text("I can't seem to find this user.")
+            message.reply_text("İstifadəçini tapa bilmədim.")
             return log_message
         else:
             raise
 
     if user_id == bot.id:
-        message.reply_text("Yeahhh I'm not gonna do that.")
+        message.reply_text("Yeahhh mən özümə bunu etməyəcəm.")
         return log_message
 
     if is_user_ban_protected(chat, user_id):
-        message.reply_text("I really wish I could punch this user....")
+        message.reply_text("ehh bu istifadəçini atmaq istəyərdim amma indi ata bilmirəm....")
         return log_message
 
     res = chat.unban_member(user_id)  # unban on current user = kick
     if res:
-        # bot.send_sticker(chat.id, BAN_STICKER)  # banhammer marie sticker
+        bot.send_sticker(chat.id, BAN_STICKER)  # banhammer marie sticker
         bot.sendMessage(
             chat.id,
-            f"One Punched! {mention_html(member.user.id, html.escape(member.user.first_name))}.",
+            f"{mention_html(member.user.id, html.escape(member.user.first_name))} qrupdan atıldı.",
             parse_mode=ParseMode.HTML)
         log = (
             f"<b>{html.escape(chat.title)}:</b>\n"
@@ -250,12 +250,12 @@ def punch(update: Update, context: CallbackContext) -> str:
             f"<b>User:</b> {mention_html(member.user.id, html.escape(member.user.first_name))}"
         )
         if reason:
-            log += f"\n<b>Reason:</b> {reason}"
+            log += f"\n<b>Səbəb:</b> {reason}"
 
         return log
 
     else:
-        message.reply_text("Well damn, I can't punch that user.")
+        message.reply_text("pf bu istifadəçini ata bilmirəm.")
 
     return log_message
 
@@ -267,15 +267,15 @@ def punchme(update: Update, context: CallbackContext):
     user_id = update.effective_message.from_user.id
     if is_user_admin(update.effective_chat, user_id):
         update.effective_message.reply_text(
-            "I wish I could... but you're an admin.")
+            "Nə? Sən bir adminsən və mən səni qrupdan atmayacam.")
         return
 
     res = update.effective_chat.unban_member(
         user_id)  # unban on current user = kick
     if res:
-        update.effective_message.reply_text("*punches you out of the group*")
+        update.effective_message.reply_text("*təbriklər, qrupdan atılırsan*")
     else:
-        update.effective_message.reply_text("Huh? I can't :/")
+        update.effective_message.reply_text("Huh? bunu bacarmıram :/")
 
 
 @run_async
@@ -294,28 +294,28 @@ def unban(update: Update, context: CallbackContext) -> str:
     user_id, reason = extract_user_and_text(message, args)
 
     if not user_id:
-        message.reply_text("I doubt that's a user.")
+        message.reply_text("Bunun bir istifadəçi olduğuna şübhə ilə yanaşıram.")
         return log_message
 
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
         if excp.message == "User not found":
-            message.reply_text("I can't seem to find this user.")
+            message.reply_text("Bu istifadəçini tapa bilmədim.")
             return log_message
         else:
             raise
 
     if user_id == bot.id:
-        message.reply_text("How would I unban myself if I wasn't here...?")
+        message.reply_text("Mən öz banımı aça bilmərəm çünki mən burdayam və banlı deyiləm...?")
         return log_message
 
     if is_user_in_chat(chat, user_id):
-        message.reply_text("Isn't this person already here??")
+        message.reply_text("Bu istifadəçinin burada olduğundan əminsən??")
         return log_message
 
     chat.unban_member(user_id)
-    message.reply_text("Yep, this user can join!")
+    message.reply_text("Yep, istifadəçi artıq qoşula bilər!")
 
     log = (
         f"<b>{html.escape(chat.title)}:</b>\n"
@@ -324,7 +324,7 @@ def unban(update: Update, context: CallbackContext) -> str:
         f"<b>User:</b> {mention_html(member.user.id, html.escape(member.user.first_name))}"
     )
     if reason:
-        log += f"\n<b>Reason:</b> {reason}"
+        log += f"\n<b>Səbəb:</b> {reason}"
 
     return log
 
@@ -344,7 +344,7 @@ def selfunban(context: CallbackContext, update: Update) -> str:
     try:
         chat_id = int(args[0])
     except:
-        message.reply_text("Give a valid chat ID.")
+        message.reply_text("Mənə düzgün qrup ID-si ver.")
         return
 
     chat = bot.getChat(chat_id)
@@ -353,17 +353,17 @@ def selfunban(context: CallbackContext, update: Update) -> str:
         member = chat.get_member(user.id)
     except BadRequest as excp:
         if excp.message == "User not found":
-            message.reply_text("I can't seem to find this user.")
+            message.reply_text("Bu istifadəçini tapa bilmədim.")
             return
         else:
             raise
 
     if is_user_in_chat(chat, user.id):
-        message.reply_text("Aren't you already in the chat??")
+        message.reply_text("Sən dəqiq həmin qrupda varsan??")
         return
 
     chat.unban_member(user.id)
-    message.reply_text("Yep, I have unbanned you.")
+    message.reply_text("Yep, Sənin banıvı açdım.")
 
     log = (
         f"<b>{html.escape(chat.title)}:</b>\n"
@@ -375,22 +375,22 @@ def selfunban(context: CallbackContext, update: Update) -> str:
 
 
 __help__ = """
- • `/punchme`*:* punchs the user who issued the command
+ • `/kickme`*:* bu əmri işlədən istifadəçini qrupdan atır
 
-*Admins only:*
- • `/ban <userhandle>`*:* bans a user. (via handle, or reply)
- • `/tban <userhandle> x(m/h/d)`*:* bans a user for `x` time. (via handle, or reply). `m` = `minutes`, `h` = `hours`, `d` = `days`.
- • `/unban <userhandle>`*:* unbans a user. (via handle, or reply)
- • `/punch <userhandle>`*:* Punches a user out of the group, (via handle, or reply)
+*Sadəcə adminlər:*
+ • `/ban <istifadəçi>`*:* istifadəçini banlayır.
+ • `/tban <istifadəçi> x(m/h/d)`*:* istifadəçini `x` müddətlik banlayır. `m` = `dəqiqə`, `h` = `saat`, `d` = `gün`.
+ • `/unban <istifadəçi>`*:* istifadəçinin banını açır.
+ • `/kick <istifadəçi>`*:* istifadəçini qrupdan atır.
 """
 
 BAN_HANDLER = CommandHandler("ban", ban)
 TEMPBAN_HANDLER = CommandHandler(["tban"], temp_ban)
-PUNCH_HANDLER = CommandHandler("punch", punch)
+PUNCH_HANDLER = CommandHandler("kick", punch)
 UNBAN_HANDLER = CommandHandler("unban", unban)
 ROAR_HANDLER = CommandHandler("roar", selfunban)
 PUNCHME_HANDLER = DisableAbleCommandHandler(
-    "punchme", punchme, filters=Filters.group)
+    "kickme", punchme, filters=Filters.group)
 
 dispatcher.add_handler(BAN_HANDLER)
 dispatcher.add_handler(TEMPBAN_HANDLER)
@@ -399,7 +399,7 @@ dispatcher.add_handler(UNBAN_HANDLER)
 dispatcher.add_handler(ROAR_HANDLER)
 dispatcher.add_handler(PUNCHME_HANDLER)
 
-__mod_name__ = "Bans"
+__mod_name__ = "Ban"
 __handlers__ = [
     BAN_HANDLER, TEMPBAN_HANDLER, PUNCH_HANDLER, UNBAN_HANDLER, ROAR_HANDLER,
     PUNCHME_HANDLER
