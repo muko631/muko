@@ -28,18 +28,18 @@ def allow_connections(update, context) -> str:
                 sql.set_allow_connect_to_chat(chat.id, False)
                 send_message(
                     update.effective_message,
-                    "Connection has been disabled for this chat",
+                    "Bu qrup üçün əlaqələr deaktiv edilib",
                 )
             elif var == "yes":
                 sql.set_allow_connect_to_chat(chat.id, True)
                 send_message(
                     update.effective_message,
-                    "Connection has been enabled for this chat",
+                    "Bu qrup üçün əlaqələr aktiv edilib",
                 )
             else:
                 send_message(
                     update.effective_message,
-                    "Please enter `yes` or `no`!",
+                    "Zəhmət olmasa `yes` və ya `no` istifadə edin!",
                     parse_mode=ParseMode.MARKDOWN,
                 )
         else:
@@ -47,18 +47,18 @@ def allow_connections(update, context) -> str:
             if get_settings:
                 send_message(
                     update.effective_message,
-                    "Connections to this group are *Allowed* for members!",
+                    "Bu qrupa qoşulma (Connection) üzvlər üçün *İcazə verilir*!",
                     parse_mode=ParseMode.MARKDOWN,
                 )
             else:
                 send_message(
                     update.effective_message,
-                    "Connection to this group are *Not Allowed* for members!",
+                    "Bu qrupa qoşulma (Connection) üzvlər üçün *İcazə verilmir*!",
                     parse_mode=ParseMode.MARKDOWN,
                 )
     else:
         send_message(update.effective_message,
-                     "This command is for group only. Not in PM!")
+                     "Bu əmr qrup üçündür!")
 
 
 @run_async
@@ -80,9 +80,9 @@ def connection_chat(update, context):
         chat_name = update.effective_message.chat.title
 
     if conn:
-        message = "You are currently connected to {}.\n".format(chat_name)
+        message = "Hazırki qrup bu qrupa qoşulub --> {}.\n".format(chat_name)
     else:
-        message = "You are currently not connected in any group.\n"
+        message = "Bu qrup hazırda heç bir qrupa qoşulmayıb.\n"
     send_message(update.effective_message, message, parse_mode="markdown")
 
 
@@ -108,10 +108,10 @@ def connect_chat(update, context):
                     getstatusadmin = context.bot.get_chat_member(
                         connect_chat, update.effective_message.from_user.id)
                 except BadRequest:
-                    send_message(update.effective_message, "Invalid Chat ID!")
+                    send_message(update.effective_message, "Yanlış qrup ID!")
                     return
             except BadRequest:
-                send_message(update.effective_message, "Invalid Chat ID!")
+                send_message(update.effective_message, "Yanlış qrup ID!")
                 return
 
             isadmin = getstatusadmin.status in ("administrator", "creator")
@@ -132,24 +132,24 @@ def connect_chat(update, context):
                     chat_name = conn_chat.title
                     send_message(
                         update.effective_message,
-                        "Successfully connected to *{}*. \nUse /helpconnect to check available commands."
+                        "Uğurla *{}* qrupuna qoşuldu. \n/helpconnect istifadə edərək mövcud əmrlərə baxa bilərsən."
                         .format(chat_name),
                         parse_mode=ParseMode.MARKDOWN,
                     )
                     sql.add_history_conn(user.id, str(conn_chat.id), chat_name)
                 else:
-                    send_message(update.effective_message, "Connection failed!")
+                    send_message(update.effective_message, "Qoşulma uğursuz oldu!")
             else:
                 send_message(update.effective_message,
-                             "Connection to this chat is not allowed!")
+                             "Bu qrupa qoşulmalar deaktiv edilib!")
         else:
             gethistory = sql.get_history_conn(user.id)
             if gethistory:
                 buttons = [
                     InlineKeyboardButton(
-                        text="❎ Close button", callback_data="connect_close"),
+                        text="❎ Bağla", callback_data="connect_close"),
                     InlineKeyboardButton(
-                        text="🧹 Clear history", callback_data="connect_clear"),
+                        text="🧹 Təmizlə", callback_data="connect_clear"),
                 ]
             else:
                 buttons = []
@@ -157,18 +157,18 @@ def connect_chat(update, context):
                 context.bot, update, chat, user.id, need_admin=False)
             if conn:
                 connectedchat = dispatcher.bot.getChat(conn)
-                text = "You are currently connected to *{}* (`{}`)".format(
+                text = "Sən hal hazırda bu qrupla əlaqə qurmusan *{}* (`{}`)".format(
                     connectedchat.title, conn)
                 buttons.append(
                     InlineKeyboardButton(
-                        text="🔌 Disconnect",
+                        text="🔌 Əlaqəni kəs",
                         callback_data="connect_disconnect"))
             else:
-                text = "Write the chat ID or tag to connect!"
+                text = "Qoşulmaq üçün qrup ID və ya etiketi yazın!"
             if gethistory:
-                text += "\n\n*Connection history:*\n"
+                text += "\n\n*Əlaqə tarixçəsi:*\n"
                 text += "╒═══「 *Info* 」\n"
-                text += "│  Sorted: `Newest`\n"
+                text += "│  Çeşidləndi: `Ən Yeni`\n"
                 text += "│\n"
                 buttons = [buttons]
                 for x in sorted(gethistory.keys(), reverse=True):
@@ -184,7 +184,7 @@ def connect_chat(update, context):
                                 gethistory[x]["chat_id"]),
                         )
                     ])
-                text += "╘══「 Total {} Chats 」".format(
+                text += "╘══「 Ümumi {} qrup 」".format(
                     str(len(gethistory)) +
                     " (max)" if len(gethistory) == 5 else str(len(gethistory)))
                 conn_hist = InlineKeyboardMarkup(buttons)
@@ -212,14 +212,14 @@ def connect_chat(update, context):
                 chat_name = dispatcher.bot.getChat(chat.id).title
                 send_message(
                     update.effective_message,
-                    "Successfully connected to *{}*.".format(chat_name),
+                    "*{}* qrupu ilə əlaqə yaradıldı.".format(chat_name),
                     parse_mode=ParseMode.MARKDOWN,
                 )
                 try:
                     sql.add_history_conn(user.id, str(chat.id), chat_name)
                     context.bot.send_message(
                         update.effective_message.from_user.id,
-                        "You are connected to *{}*. \nUse `/helpconnect` to check available commands."
+                        "Sən hazırda *{}* qrupu ilə əlaqə yaratmısan. \n`/helpconnect` yazaraq mövcud əmrlərə baxa bilərsən."
                         .format(chat_name),
                         parse_mode="markdown",
                     )
@@ -228,10 +228,10 @@ def connect_chat(update, context):
                 except Unauthorized:
                     pass
             else:
-                send_message(update.effective_message, "Connection failed!")
+                send_message(update.effective_message, "Əlaqə uğursuz oldu!")
         else:
             send_message(update.effective_message,
-                         "Connection to this chat is not allowed!")
+                         "Bu qrup ilə əlaqələr deaktiv edilib!")
 
 
 def disconnect_chat(update, context):
@@ -241,12 +241,12 @@ def disconnect_chat(update, context):
             update.effective_message.from_user.id)
         if disconnection_status:
             sql.disconnected_chat = send_message(update.effective_message,
-                                                 "Disconnected from chat!")
+                                                 "Qrup ilə əlaqə uğurla kəsildi!")
         else:
-            send_message(update.effective_message, "You're not connected!")
+            send_message(update.effective_message, "Sən qoşulmamısan!")
     else:
         send_message(update.effective_message,
-                     "This command is only available in PM.")
+                     "Bu əmr yalnız PM-də mövcuddur.")
 
 
 def connected(bot: Bot, update: Update, chat, user_id, need_admin=True):
@@ -270,14 +270,14 @@ def connected(bot: Bot, update: Update, chat, user_id, need_admin=True):
                 else:
                     send_message(
                         update.effective_message,
-                        "You must be an admin in the connected group!",
+                        "Sən qoşulmuş qrupda admin olmalısan!",
                     )
             else:
                 return conn_id
         else:
             send_message(
                 update.effective_message,
-                "The group changed the connection rights or you are no longer an admin.\nI've disconnected you.",
+                "Qrup əlaqə hüquqlarını dəyişdirdi, və ya artıq admin deyilsən. \nSizlə əlaqəni kəsdim.",
             )
             disconnect_chat(update, bot)
     else:
@@ -285,16 +285,15 @@ def connected(bot: Bot, update: Update, chat, user_id, need_admin=True):
 
 
 CONN_HELP = """
- Actions are available with connected groups:
- • View and edit Notes.
- • View and edit Filters.
- • Get invite link of chat.
- • Set and control AntiFlood settings.
- • Set and control Blacklist settings.
- • Set Locks and Unlocks in chat.
- • Enable and Disable commands in chat.
- • Export and Imports of chat backup.
- • More in future!"""
+ Əlaqə yaradılmış qruplarla mövcud əməliyyatlar:
+ • Notları görmək və dəyişmək.
+ • Filtrləri görmək və dəyişmək.
+ • Qrupun dəvət linkini almaq.
+ • AntiFlood ayarlarını dəyişmək.
+ • Qara siyahı ayarlarını dəyişmək.
+ • Qrupda kilidləmək/açmaq əməliyyatları.
+ • Əmrləri aktiv/deaktiv etmək.
+ """
 
 
 @run_async
@@ -304,7 +303,7 @@ def help_connect_chat(update, context):
 
     if update.effective_message.chat.type != "private":
         send_message(update.effective_message,
-                     "PM me with that command to get help.")
+                     "Bu əmrlə birlikdə kömək üçün mənimlə PM-də əlaqəyə keç.")
         return
     else:
         send_message(update.effective_message, CONN_HELP, parse_mode="markdown")
@@ -339,48 +338,48 @@ def connect_button(update, context):
                         context.bot, update, chat, user.id, need_admin=False))
                 chat_name = conn_chat.title
                 query.message.edit_text(
-                    "Successfully connected to *{}*. \nUse `/helpconnect` to check available commands."
+                    "*{}* qrupu ilə əlaqə uğurla yaradıldı. \n`/helpconnect` yazaraq mövcud əmrlərə baxa bilərsən."
                     .format(chat_name),
                     parse_mode=ParseMode.MARKDOWN,
                 )
                 sql.add_history_conn(user.id, str(conn_chat.id), chat_name)
             else:
-                query.message.edit_text("Connection failed!")
+                query.message.edit_text("Əlaqə uğursuz oldu!")
         else:
             context.bot.answer_callback_query(
                 query.id,
-                "Connection to this chat is not allowed!",
+                "Bu qrupa qoşulmalar deaktiv edilib!",
                 show_alert=True)
     elif disconnect_match:
         disconnection_status = sql.disconnect(query.from_user.id)
         if disconnection_status:
             sql.disconnected_chat = query.message.edit_text(
-                "Disconnected from chat!")
+                "Qrup ilə əlaqə kəsildi!")
         else:
             context.bot.answer_callback_query(
-                query.id, "You're not connected!", show_alert=True)
+                query.id, "Sən qoşulmamısan!", show_alert=True)
     elif clear_match:
         sql.clear_history_conn(query.from_user.id)
-        query.message.edit_text("History connected has been cleared!")
+        query.message.edit_text("Qoşulmalarla bağlı tarixçə silindi!")
     elif connect_close:
-        query.message.edit_text("Closed.\nTo open again, type /connect")
+        query.message.edit_text("Bağlandı.\nYenidən qoşulmaq üçün /connect")
     else:
         connect_chat(update, context)
 
 
-__mod_name__ = "Connection"
+__mod_name__ = "Əlaqələe"
 
 __help__ = """
-Sometimes, you just want to add some notes and filters to a group chat, but you don't want everyone to see; This is where connections come in...
-This allows you to connect to a chat's database, and add things to it without the commands appearing in chat! For obvious reasons, you need to be an admin to add things; but any member in the group can view your data.
+Bəzən, yalnız bir qrup söhbətinə bəzi qeydlər və filtrlər əlavə etmək istəyirsən, amma hamının görməsini istəmirsən; Bağlantıların daxil olduğu yer budur ...
+Bu, bir sohbet verilənlər bazasına qoşulmağa və ona əmrlər görünmədən bir şey əlavə etməyə imkan verir! Məlum səbəblərdən, şeylər əlavə etmək üçün admin olmağınız lazımdır; lakin qrupdakı hər hansı bir üzv məlumatlarınızı görə bilər
 
- • /connect: Connects to chat (Can be done in a group by /connect or /connect <chat id> in PM)
- • /connection: List connected chats
- • /disconnect: Disconnect from a chat
- • /helpconnect: List available commands that can be used remotely
+ • /connect: Qrup ilə əlaqə yaradır (Qrupda /connect yazaraq və ya /connect <qrup id> ilə PM-də yazmaq mümkündü)
+ • /connection: Qoşulmuş qrupların siyahısı
+ • /disconnect: Qrup ilə əlaqəni kəsir
+ • /helpconnect: Mövcud əmrləri göstərir
 
-*Admin only:*
- • /allowconnect <yes/no>: allow a user to connect to a chat
+*Sadəcə adminlər:*
+ • /allowconnect <yes/no>: qoşulmaları aktiv/deaktiv edir
 """
 
 CONNECT_CHAT_HANDLER = CommandHandler("connect", connect_chat, pass_args=True)
