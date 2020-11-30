@@ -13,7 +13,7 @@ def convert(update: Update, context: CallbackContext):
             orig_cur_amount = float(args[1])
 
         except ValueError:
-            update.effective_message.reply_text("Invalid Amount Of Currency")
+            update.effective_message.reply_text("Yanlış valyuta miqdarı.")
             return
 
         orig_cur = args[2].upper()
@@ -30,7 +30,7 @@ def convert(update: Update, context: CallbackContext):
             current_rate = float(
                 response['Realtime Currency Exchange Rate']['5. Exchange Rate'])
         except KeyError:
-            update.effective_message.reply_text("Currency Not Supported.")
+            update.effective_message.reply_text("Valyuta dəstəklənmir.")
             return
         new_cur_amount = round(orig_cur_amount * current_rate, 5)
         update.effective_message.reply_text(
@@ -42,13 +42,13 @@ def convert(update: Update, context: CallbackContext):
 
     else:
         update.effective_message.reply_text(
-            f"*Invalid Args!!:* Required 3 But Passed {len(args) -1}",
+            f"*Yanlış arqument!!:* 3 arqument lazımdır!",
             parse_mode=ParseMode.MARKDOWN)
 
 
-CONVERTER_HANDLER = CommandHandler('cash', convert)
+CONVERTER_HANDLER = CommandHandler('valyuta', convert)
 
 dispatcher.add_handler(CONVERTER_HANDLER)
 
-__command_list__ = ["cash"]
+__command_list__ = ["valyuta"]
 __handlers__ = [CONVERTER_HANDLER]
