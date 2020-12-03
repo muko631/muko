@@ -496,7 +496,7 @@ def rmall_filters(update, context):
             InlineKeyboardButton(text="Ləğv et", callback_data="filters_cancel")
         ]])
         update.effective_message.reply_text(
-            f"*{chat.title}* qrupundakı bütün filtrləri dayandırmaq istədiyindən əminsən?,
+            f"*{chat.title}* qrupundakı bütün filtrləri dayandırmaq istədiyindən əminsən?"
             reply_markup=buttons,
             parse_mode=ParseMode.MARKDOWN)
 
