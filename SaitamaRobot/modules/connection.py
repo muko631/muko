@@ -367,7 +367,7 @@ def connect_button(update, context):
         connect_chat(update, context)
 
 
-__mod_name__ = "Əlaqələe"
+__mod_name__ = "Əlaqələr"
 
 __help__ = """
 Bəzən, yalnız bir qrup söhbətinə bəzi qeydlər və filtrlər əlavə etmək istəyirsən, amma hamının görməsini istəmirsən; Bağlantıların daxil olduğu yer budur ...
