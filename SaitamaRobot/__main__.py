@@ -51,7 +51,7 @@ def get_readable_time(seconds: int) -> str:
 
 
 PM_START_TEXT = """
-Salam {}, mən *{}*yəm! 
+Salam {}, mənim adım {*}*dir! 
 Mən Azərbaycanca olan qrup idarə botuyam.
 Bütün əmrlər üçün klik et /help.
 """
@@ -64,7 +64,7 @@ Mənimlə birlikdə qruplarınızı idarə edə bilərsiniz.
  • /help: Kömək menyusu.
  • /help <modul adı>: müəyyən modul haqqında məlumat verir.
  • /settings:
-   • PM-də: ayarları göstərir.
+   • PM-də : ayarları göstərir.
    • qrupda: qrup ayarlarını göstərir.
 
 
