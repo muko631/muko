@@ -107,8 +107,7 @@ def dev_plus(func):
             update.effective_message.delete()
         else:
             update.effective_message.reply_text(
-                "This is a developer restricted command."
-                " You do not have permissions to run this.")
+                "Bu əmri istifadə etmək hüququna sahib deyilsən")
 
     return is_dev_plus_func
 
@@ -130,7 +129,7 @@ def sudo_plus(func):
             update.effective_message.delete()
         else:
             update.effective_message.reply_text(
-                "Who dis non-admin telling me what to do? You want a punch?")
+                "Admin olmayan biri mənə nə etməli olduğumu deyir? Deyəsən döyülmək istəyirsən!")
 
     return is_sudo_plus_func
 
@@ -165,7 +164,7 @@ def whitelist_plus(func):
             return func(update, context, *args, **kwargs)
         else:
             update.effective_message.reply_text(
-                f"You don't have access to use this.\nVisit @{SUPPORT_CHAT}")
+                f"Bunu etmək hüququn yoxdur.\n@{SUPPORT_CHAT} -a get")
 
     return is_whitelist_plus_func
 
@@ -186,7 +185,7 @@ def user_admin(func):
             update.effective_message.delete()
         else:
             update.effective_message.reply_text(
-                "Who dis non-admin telling me what to do? You want a punch?")
+                "Admin olmayan biri mənə nə etməli olduğumu deyir? Deyəsən döyülmək istəyirsən!")
 
     return is_admin
 
@@ -236,9 +235,9 @@ def bot_admin(func):
         message_chat_title = update.effective_message.chat.title
 
         if update_chat_title == message_chat_title:
-            not_admin = "I'm not admin! - REEEEEE"
+            not_admin = "Admin deyiləm!"
         else:
-            not_admin = f"I'm not admin in <b>{update_chat_title}</b>! - REEEEEE"
+            not_admin = f"<b>{update_chat_title}</b> qrupunda admin deyiləm!"
 
         if is_bot_admin(chat, bot.id):
             return func(update, context, *args, **kwargs)
@@ -260,9 +259,9 @@ def bot_can_delete(func):
         message_chat_title = update.effective_message.chat.title
 
         if update_chat_title == message_chat_title:
-            cant_delete = "I can't delete messages here!\nMake sure I'm admin and can delete other user's messages."
+            cant_delete = "Burada mesaj silmə səlahiyyətim yoxdur!\nAdmin olduğumdan və mesajları silə bildiyimdən əmin ol."
         else:
-            cant_delete = f"I can't delete messages in <b>{update_chat_title}</b>!\nMake sure I'm admin and can delete other user's messages there."
+            cant_delete = f"<b>{update_chat_title}</b> qrupunda mesajları silə bilmirəm!\nOrada admin olduğumdan və mesajları silə bildiyimdən əmin ol."
 
         if can_delete(chat, bot.id):
             return func(update, context, *args, **kwargs)
@@ -283,9 +282,9 @@ def can_pin(func):
         message_chat_title = update.effective_message.chat.title
 
         if update_chat_title == message_chat_title:
-            cant_pin = "I can't pin messages here!\nMake sure I'm admin and can pin messages."
+            cant_pin = "Burada mesaj sabitləyə bilmirəm!\nAdmin olduğumdan və mesaj sabitləyə bildiyimdən əmin ol."
         else:
-            cant_pin = f"I can't pin messages in <b>{update_chat_title}</b>!\nMake sure I'm admin and can pin messages there."
+            cant_pin = f"<b>{update_chat_title}</b> qrupunda mesaj sabitləyə bilmirəm!\nOrada admin olduğumdan və mesaj sabitləyə bildiyimdən əmin ol."
 
         if chat.get_member(bot.id).can_pin_messages:
             return func(update, context, *args, **kwargs)
@@ -307,11 +306,11 @@ def can_promote(func):
         message_chat_title = update.effective_message.chat.title
 
         if update_chat_title == message_chat_title:
-            cant_promote = "I can't promote/demote people here!\nMake sure I'm admin and can appoint new admins."
+            cant_promote = "İstifadəçiləri admin edə bilmirəm!\nYeni adminlər təyin edə bildiyimdən əmin ol."
         else:
             cant_promote = (
-                f"I can't promote/demote people in <b>{update_chat_title}</b>!\n"
-                f"Make sure I'm admin there and can appoint new admins.")
+                f"<b>{update_chat_title}</b> qrupunda istifadəçiləri admin edə bilmirəm!\n"
+                f"Orada admin olduğumdan və yeni adminlər təyin edə bildiyimdən əmin ol.")
 
         if chat.get_member(bot.id).can_promote_members:
             return func(update, context, *args, **kwargs)
@@ -333,9 +332,9 @@ def can_restrict(func):
         message_chat_title = update.effective_message.chat.title
 
         if update_chat_title == message_chat_title:
-            cant_restrict = "I can't restrict people here!\nMake sure I'm admin and can restrict users."
+            cant_restrict = "Burada istifadəçiləri məhdudlaşdıra bilmirəm!\nAdmin olduğumdan və istifadəçiləri məhdudlaşdıra bildiyimdən əmin ol."
         else:
-            cant_restrict = f"I can't restrict people in <b>{update_chat_title}</b>!\nMake sure I'm admin there and can restrict users."
+            cant_restrict = f"<b>{update_chat_title}</b> qrupunda istifadəçiləri məhdudlaşdıra bilmirəm!\nAdmin olduğumdan və istifadəçiləri məhdudlaşdıra bildiyimdən əmin ol."
 
         if chat.get_member(bot.id).can_restrict_members:
             return func(update, context, *args, **kwargs)
@@ -357,7 +356,7 @@ def user_can_ban(func):
         if not (member.can_restrict_members or member.status == "creator"
                ) and not user in DRAGONS and user not in [777000, 1087968824]:
             update.effective_message.reply_text(
-                "Sorry son, but you're not worthy to wield the banhammer.")
+                "Bağışla. Sən məni işlətməyə layiq deyilsən.")
             return ""
         return func(update, context, *args, **kwargs)
 
@@ -383,7 +382,7 @@ def connection_status(func):
         else:
             if update.effective_message.chat.type == "private":
                 update.effective_message.reply_text(
-                    "Send /connect in a group that you and I have in common first."
+                    "Hər hansısa qrupda /connect yaz."
                 )
                 return connected_status
 
