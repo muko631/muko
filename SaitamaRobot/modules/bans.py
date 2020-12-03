@@ -33,7 +33,7 @@ def ban(update: Update, context: CallbackContext) -> str:
     user_id, reason = extract_user_and_text(message, args)
 
     if not user_id:
-        message.reply_text("Bunun bir uder olduğuna şübhə ilə yanaşıram.")
+        message.reply_text("Bunun bir user olduğuna şübhə ilə yanaşıram.")
         return log_message
 
     try:
