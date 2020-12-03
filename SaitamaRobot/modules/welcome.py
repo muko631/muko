@@ -197,7 +197,7 @@ def new_member(update: Update, context: CallbackContext):
             # Welcome Support
             elif new_mem.id in DEMONS:
                 update.effective_message.reply_text(
-                    "Huh! Someone with a Demon disaster level just joined!",
+                    "Pakize Team'in şeytanlarından biri gəldi😈!",
                     reply_to_message_id=reply,
                 )
                 continue
@@ -205,14 +205,14 @@ def new_member(update: Update, context: CallbackContext):
             # Welcome Whitelisted
             elif new_mem.id in TIGERS:
                 update.effective_message.reply_text(
-                    "Oof! A Tiger disaster just joined!",
+                    "Oof! Pələng də buradadır!",
                     reply_to_message_id=reply)
                 continue
 
             # Welcome Tigers
             elif new_mem.id in WOLVES:
                 update.effective_message.reply_text(
-                    "Oof! A Wolf disaster just joined!",
+                    "Oof! Pakize Team'in canavarı xoşgəldi!",
                     reply_to_message_id=reply)
                 continue
 
@@ -239,7 +239,7 @@ def new_member(update: Update, context: CallbackContext):
                         .format(html.escape(chat.title), chat.id),
                         parse_mode=ParseMode.HTML)
                 update.effective_message.reply_text(
-                    "Watashi ga kita!", reply_to_message_id=reply)
+                    "Mən gəldim😊!", reply_to_message_id=reply)
                 continue
 
             else:
@@ -433,7 +433,7 @@ def check_not_bot(member, chat_id, message_id, context):
 
         try:
             bot.edit_message_text(
-                "*kicks user*\nThey can always rejoin and try.",
+                "Qrupdan atıram\nİstənilən vaxt yenidən qoşula bilər.",
                 chat_id=chat_id,
                 message_id=message_id,
             )
@@ -559,8 +559,8 @@ def welcome(update: Update, context: CallbackContext):
         noformat = True
         pref, welcome_m, cust_content, welcome_type = sql.get_welc_pref(chat.id)
         update.effective_message.reply_text(
-            f"This chat has it's welcome setting set to: `{pref}`.\n"
-            f"*The welcome message (not filling the {{}}) is:*",
+            f"Bu qrupun qarşılama ayarı `{pref}`.\n"
+            f"*Qarşılama mesajı:*",
             parse_mode=ParseMode.MARKDOWN,
         )
 
@@ -603,7 +603,7 @@ def welcome(update: Update, context: CallbackContext):
         elif args[0].lower() in ("off", "no"):
             sql.set_welc_preference(str(chat.id), False)
             update.effective_message.reply_text(
-                "I'll go loaf around and not welcome anyone then.")
+                "Artıq gələnləri qarşılamayacam.")
 
         else:
             update.effective_message.reply_text(
@@ -620,8 +620,8 @@ def goodbye(update: Update, context: CallbackContext):
         noformat = True
         pref, goodbye_m, goodbye_type = sql.get_gdbye_pref(chat.id)
         update.effective_message.reply_text(
-            f"This chat has it's goodbye setting set to: `{pref}`.\n"
-            f"*The goodbye  message (not filling the {{}}) is:*",
+            f"Bu qrupun sağ salamat qal ayarı: `{pref}`.\n"
+            f"*Sağ salamat qal mesajı:*",
             parse_mode=ParseMode.MARKDOWN,
         )
 
@@ -710,7 +710,7 @@ def set_goodbye(update: Update, context: CallbackContext) -> str:
     text, data_type, content, buttons = get_welcome_type(msg)
 
     if data_type is None:
-        msg.reply_text("Me!")
+        msg.reply_text("Bir mesaja yanıt verin!")
         return ""
 
     sql.set_custom_gdbye(chat.id, content or text, data_type, buttons)
@@ -777,15 +777,15 @@ def welcomemute(update: Update, context: CallbackContext) -> str:
                 f"Has toggled welcome mute to <b>STRONG</b>.")
         else:
             msg.reply_text(
-                "Please enter <code>off</code>/<code>no</code>/<code>soft</code>/<code>strong</code>!",
+                "Zəhmət olmasa yalnız <code>off</code>/<code>no</code>/<code>soft</code>/<code>strong</code> istifadə edin!",
                 parse_mode=ParseMode.HTML,
             )
             return ""
     else:
         curr_setting = sql.welcome_mutes(chat.id)
         reply = (
-            f"\n Give me a setting!\nChoose one out of: <code>off</code>/<code>no</code> or <code>soft</code> or <code>strong</code> only! \n"
-            f"Current setting: <code>{curr_setting}</code>")
+            f"\n Aşağıdakılardan birini seçməlisən: <code>off</code>/<code>no</code> və ya <code>soft</code> və ya <code>strong</code> ! \n"
+            f"Hazırki ayar: <code>{curr_setting}</code>")
         msg.reply_text(reply, parse_mode=ParseMode.HTML)
         return ""
 
@@ -802,16 +802,16 @@ def clean_welcome(update: Update, context: CallbackContext) -> str:
         clean_pref = sql.get_clean_pref(chat.id)
         if clean_pref:
             update.effective_message.reply_text(
-                "I should be deleting welcome messages up to two days old.")
+                "İki günə qədər salamlama mesajlarını silməyim lazımdır.")
         else:
             update.effective_message.reply_text(
-                "I'm currently not deleting old welcome messages!")
+                "Köhnə qarşılama mesajlarını silmirəm!")
         return ""
 
     if args[0].lower() in ("on", "yes"):
         sql.set_clean_welcome(str(chat.id), True)
         update.effective_message.reply_text(
-            "I'll try to delete old welcome messages!")
+            "Köhnə qarşılama mesajlarını siləcəm!")
         return (f"<b>{html.escape(chat.title)}:</b>\n"
                 f"#CLEAN_WELCOME\n"
                 f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
@@ -819,14 +819,14 @@ def clean_welcome(update: Update, context: CallbackContext) -> str:
     elif args[0].lower() in ("off", "no"):
         sql.set_clean_welcome(str(chat.id), False)
         update.effective_message.reply_text(
-            "I won't delete old welcome messages.")
+            "Köhnə qarşılama mesajlarını silməyəcəm.")
         return (f"<b>{html.escape(chat.title)}:</b>\n"
                 f"#CLEAN_WELCOME\n"
                 f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
                 f"Has toggled clean welcomes to <code>OFF</code>.")
     else:
         update.effective_message.reply_text(
-            "I understand 'on/yes' or 'off/no' only!")
+            "Mən yalnız 'on/yes' və ya 'off/no' başa düşürəm!")
         return ""
 
 
@@ -841,27 +841,27 @@ def cleanservice(update: Update, context: CallbackContext) -> str:
             if var in ("no", "off"):
                 sql.set_clean_service(chat.id, False)
                 update.effective_message.reply_text(
-                    "Welcome clean service is : off")
+                    "Qarşılama mesajı silmə ayarı : off")
             elif var in ("yes", "on"):
                 sql.set_clean_service(chat.id, True)
                 update.effective_message.reply_text(
-                    "Welcome clean service is : on")
+                    "Qarşılama mesajı silmə ayarı : on")
             else:
                 update.effective_message.reply_text(
-                    "Invalid option", parse_mode=ParseMode.HTML)
+                    "Xətalı seçim", parse_mode=ParseMode.HTML)
         else:
             update.effective_message.reply_text(
-                "Usage is <code>on</code>/<code>yes</code> or <code>off</code>/<code>no</code>",
+                "İstifadəsi <code>on</code>/<code>yes</code> və ya <code>off</code>/<code>no</code>",
                 parse_mode=ParseMode.HTML)
     else:
         curr = sql.clean_service(chat.id)
         if curr:
             update.effective_message.reply_text(
-                "Welcome clean service is : <code>on</code>",
+                "Qarşılama mesajı silmə ayarı : <code>on</code>",
                 parse_mode=ParseMode.HTML)
         else:
             update.effective_message.reply_text(
-                "Welcome clean service is : <code>off</code>",
+                "Qarşılama mesajı silmə ayarı: <code>off</code>",
                 parse_mode=ParseMode.HTML)
 
 
@@ -880,7 +880,7 @@ def user_button(update: Update, context: CallbackContext):
         member_dict = VERIFIED_USER_WAITLIST.pop(user.id)
         member_dict["status"] = True
         VERIFIED_USER_WAITLIST.update({user.id: member_dict})
-        query.answer(text="Yeet! You're a human, unmuted!")
+        query.answer(text="Aha sən insansan, səsin açıldı!")
         bot.restrict_chat_member(
             chat.id,
             user.id,
@@ -924,41 +924,30 @@ def user_button(update: Update, context: CallbackContext):
                     sql.set_clean_welcome(chat.id, sent.message_id)
 
     else:
-        query.answer(text="You're not allowed to do this!")
+        query.answer(text="Bunu sən edə bilmərsən!")
 
 
 WELC_HELP_TXT = (
-    "Your group's welcome/goodbye messages can be personalised in multiple ways. If you want the messages"
-    " to be individually generated, like the default welcome message is, you can use *these* variables:\n"
-    " • `{first}`*:* this represents the user's *first* name\n"
-    " • `{last}`*:* this represents the user's *last* name. Defaults to *first name* if user has no "
-    "last name.\n"
-    " • `{fullname}`*:* this represents the user's *full* name. Defaults to *first name* if user has no "
-    "last name.\n"
-    " • `{username}`*:* this represents the user's *username*. Defaults to a *mention* of the user's "
-    "first name if has no username.\n"
-    " • `{mention}`*:* this simply *mentions* a user - tagging them with their first name.\n"
-    " • `{id}`*:* this represents the user's *id*\n"
-    " • `{count}`*:* this represents the user's *member number*.\n"
-    " • `{chatname}`*:* this represents the *current chat name*.\n"
-    "\nEach variable MUST be surrounded by `{}` to be replaced.\n"
-    "Welcome messages also support markdown, so you can make any elements bold/italic/code/links. "
-    "Buttons are also supported, so you can make your welcomes look awesome with some nice intro "
-    "buttons.\n"
-    f"To create a button linking to your rules, use this: `[Rules](buttonurl://t.me/{dispatcher.bot.username}?start=group_id)`. "
-    "Simply replace `group_id` with your group's id, which can be obtained via /id, and you're good to "
-    "go. Note that group ids are usually preceded by a `-` sign; this is required, so please don't "
-    "remove it.\n"
-    "You can even set images/gifs/videos/voice messages as the welcome message by "
-    "replying to the desired media, and calling `/setwelcome`.")
+    "Siz aşağıdakı dəyərlər ilə qarşılama/vida mesajını daha yaxşı edə bilərsiniz.\n"
+    " • `{first}`*:* istifadəçinin adı\n"
+    " • `{last}`*:* istifadəçinin soyadı\n"
+    " • `{fullname}`*:* istifadəçinin adı və soyadı\n"
+    " • `{username}`*:* istifadəçinin username-i\n"
+    " • `{mention}`*:* istifadəçini adı ilə tag edir\n"
+    " • `{id}`*:* istifadəçinin id göstərir\n"
+    " • `{count}`*:* istifadəçinin üzv nömrəsini göstərir.\n"
+    " • `{chatname}`*:* qrup adını göstərir\n"
+    f"Linkli button da əlavə etmək olar. Məsələn: `[Qaydalar](buttonurl://t.me/{dispatcher.bot.username}?start=group_id)`. "
+    "`group_id` yerinə öz qrupunuzun id yazın,  "
+    "Qrup id - ilə başlamalıdır.")
 
 WELC_MUTE_HELP_TXT = (
-    "You can get the bot to mute new people who join your group and hence prevent spambots from flooding your group. "
-    "The following options are possible:\n"
-    "• `/welcomemute soft`*:* restricts new members from sending media for 24 hours.\n"
-    "• `/welcomemute strong`*:* mutes new members till they tap on a button thereby verifying they're human.\n"
-    "• `/welcomemute off`*:* turns off welcomemute.\n"
-    "*Note:* Strong mode kicks a user from the chat if they dont verify in 120seconds. They can always rejoin though"
+    "Bu bot qrupa qoşulanları avtomatik sudura da bilir. Doğrulama testini etdikdən sonra səsləri avtomatik açılır. "
+    "Mövcud əmrlər:\n"
+    "• `/welcomemute soft`*:* yeni qoşulanlar 24 saatlığına media höndərə bilmirlər.\n"
+    "• `/welcomemute strong`*:* qrupa yeni qoşulanlar buttona basana qədər səssizləşdirilir.\n"
+    "• `/welcomemute off`*:* səssizə almanı deaktiv edir.\n"
+    "*Qryd:* Strong odu aktiv olduğunda qrupa yeni qoşulanlar 120 saniyə ərzində butona basmasalar qtupdan atılır. İstənilən vaxt yenidən qoşula bilər"
 )
 
 
@@ -995,29 +984,29 @@ def __migrate__(old_chat_id, new_chat_id):
 def __chat_settings__(chat_id, user_id):
     welcome_pref = sql.get_welc_pref(chat_id)[0]
     goodbye_pref = sql.get_gdbye_pref(chat_id)[0]
-    return ("This chat has it's welcome preference set to `{}`.\n"
-            "It's goodbye preference is `{}`.".format(welcome_pref,
+    return ("Bu qtupun qarşılama ayarı `{}`.\n"
+            "Bu qrupun vida ayarı `{}`.".format(welcome_pref,
                                                       goodbye_pref))
 
 
 __help__ = """
-*Admins only:*
+*Sadəcə adminlər:*
  • `/welcome <on/off>`*:* Qarşılama mesajlarını açar/bağlayar .
  • `/welcome`*:* hazırki qarşılama mesajı ayarlarını göstərər.
- • `/welcome noformat`*:* shows current welcome settings, without the formatting - useful to recycle your welcome messages!
- • `/goodbye`*:* same usage and args as `/welcome`.
- • `/setwelcome <sometext>`*:* set a custom welcome message. Əgər media'a cavab olaraq istifadə etsəniz media'nı xoşgəldin mesajı olaraq qeyd edər.
- • `/setgoodbye <sometext>`*:* Xüsusi bir vida mesajı təyin edin. Əgər media'a cavab olaraq istifadə etsəniz media'nı vida mesajı olaraq qeyd edər.
+ • `/welcome noformat`*:* qarşılama mesajını formatsız göstərir!
+ • `/goodbye`*:* `/welcome` ilə eyni.
+ • `/setwelcome <mətn>`*:* qarşılama mesajı edir. Əgər media'a cavab olaraq istifadə etsəniz media'nı xoşgəldin mesajı olaraq qeyd edər.
+ • `/setgoodbye <mətn>`*:* Xüsusi bir vida mesajı təyin edin. Əgər media'a cavab olaraq istifadə etsəniz media'nı vida mesajı olaraq qeyd edər.
  • `/resetwelcome`*:* Xoşgəldin mesajını default vəziyyətinə qaytarar.
  • `/resetgoodbye`*:* Vida mesajını default vəziyyətinə qaytarar.
  • `/cleanwelcome <on/off>`*:* Qrupa eyni zamanda çox üzv qatıldıq da xoşgəldin mesajı spamı olmamasına üçün köhnə mesajı silər.
  • `/welcomemutehelp`*:* gives information about welcome mutes.
- • `/cleanservice <on/off`*:* Telegramın welcome/left servis mesajlarını bağlıyar. 
- *Example:*
+ • `/cleanservice <on/off>`*:* Telegramın welcome/left servis mesajlarını bağlıyar. 
+ *Nümunə:*
 user qrupa qatıldı, user qrupu tərk etdi.
 
-*Welcome markdown:* 
- • `/welcomehelp`*:* view more formatting information for custom welcome/goodbye messages.
+*Qarşılama formatı:* 
+ • `/welcomehelp`*:* formatlama haqqında məlumat.
 """
 
 NEW_MEM_HANDLER = MessageHandler(Filters.status_update.new_chat_members,
@@ -1057,7 +1046,7 @@ dispatcher.add_handler(CLEAN_SERVICE_HANDLER)
 dispatcher.add_handler(BUTTON_VERIFY_HANDLER)
 dispatcher.add_handler(WELCOME_MUTE_HELP)
 
-__mod_name__ = "Greetings"
+__mod_name__ = "Qarşılama"
 __command_list__ = []
 __handlers__ = [
     NEW_MEM_HANDLER,
