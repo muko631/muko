@@ -18,7 +18,7 @@ def wiki(update: Update, context: CallbackContext):
         res = wikipedia.summary(search)
     except DisambiguationError as e:
         update.message.reply_text(
-            "Disambiguated pages found! Adjust your query accordingly.\n<i>{}</i>"
+            "Ayrılmış səhifələr tapıldı! Sorğunuzu uyğun olaraq tənzimləyin.\n<i>{}</i>"
             .format(e),
             parse_mode=ParseMode.HTML)
     except PageError as e:
@@ -27,7 +27,7 @@ def wiki(update: Update, context: CallbackContext):
     if res:
         result = f"<b>{search}</b>\n\n"
         result += f"<i>{res}</i>\n"
-        result += f"""<a href="https://en.wikipedia.org/wiki/{search.replace(" ", "%20")}">Read more...</a>"""
+        result += f"""<a href="https://en.wikipedia.org/wiki/{search.replace(" ", "%20")}">Daha çox...</a>"""
         if len(result) > 4000:
             with open("result.txt", 'w') as f:
                 f.write(f"{result}\n\nUwU OwO OmO UmU")
