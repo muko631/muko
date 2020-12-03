@@ -203,7 +203,7 @@ def start(update: Update, context: CallbackContext):
                              text="🚑 Dəstək Qrupu",
                              url=f"https://t.me/{SUPPORT_CHAT}"),
                          InlineKeyboardButton(
-                             text="🔔 Yeniliklər kanalə",
+                             text="🔔 Yeniliklər kanalı",
                              url="https://t.me/rihads")
                      ],
                      [
@@ -214,7 +214,7 @@ def start(update: Update, context: CallbackContext):
                      [
                          InlineKeyboardButton(
                              text="🗄 Repo",
-                             url="https://github.com/Mensimov")
+                             url="https://github.com/Mensimov/PakizeBot")
                      ]]))
     else:
         update.effective_message.reply_text(
