@@ -135,19 +135,19 @@ def get_id(update: Update, context: CallbackContext):
 
             user = bot.get_chat(user_id)
             msg.reply_text(
-                f"{html.escape(user.first_name)}'s id is <code>{user.id}</code>.",
+                f"{html.escape(user.first_name)} isitfadəçisinin ID: <code>{user.id}</code>.",
                 parse_mode=ParseMode.HTML)
 
     else:
 
         if chat.type == "private":
             msg.reply_text(
-                f"Your id is <code>{chat.id}</code>.",
+                f"Sənin ID: <code>{chat.id}</code>.",
                 parse_mode=ParseMode.HTML)
 
         else:
             msg.reply_text(
-                f"This group's id is <code>{chat.id}</code>.",
+                f"Bu qrupun ID <code>{chat.id}</code>.",
                 parse_mode=ParseMode.HTML)
 
 
@@ -164,26 +164,26 @@ async def group_info(event) -> None:
         ch_full = await event.client(GetFullChannelRequest(channel=entity))
     except:
         await event.reply(
-            "Can't for some reason, maybe it is a private one or that I am banned there."
+            "Qrup məlumatını əldə edə bilmədim."
         )
         return
     msg = f"**ID**: `{entity.id}`"
-    msg += f"\n**Title**: `{entity.title}`"
+    msg += f"\n**Başlıq**: `{entity.title}`"
     msg += f"\n**Datacenter**: `{entity.photo.dc_id}`"
     msg += f"\n**Video PFP**: `{entity.photo.has_video}`"
-    msg += f"\n**Supergroup**: `{entity.megagroup}`"
+    msg += f"\n**Super qrup**: `{entity.megagroup}`"
     msg += f"\n**Restricted**: `{entity.restricted}`"
     msg += f"\n**Scam**: `{entity.scam}`"
     msg += f"\n**Slowmode**: `{entity.slowmode_enabled}`"
     if entity.username:
         msg += f"\n**Username**: {entity.username}"
-    msg += "\n\n**Member Stats:**"
-    msg += f"\n`Admins:` `{len(totallist)}`"
-    msg += f"\n`Users`: `{totallist.total}`"
-    msg += "\n\n**Admins List:**"
+    msg += "\n\n**İtifadəçi statistikası:**"
+    msg += f"\n`Admin sayı:` `{len(totallist)}`"
+    msg += f"\n`User ssyı`: `{totallist.total}`"
+    msg += "\n\n**Admin siyahısı:**"
     for x in totallist:
         msg += f"\n• [{x.id}](tg://user?id={x.id})"
-    msg += f"\n\n**Description**:\n`{ch_full.full_chat.about}`"
+    msg += f"\n\n**Açıqlama**:\n`{ch_full.full_chat.about}`"
     await event.reply(msg)
 
 
@@ -196,7 +196,7 @@ def gifid(update: Update, context: CallbackContext):
             parse_mode=ParseMode.HTML)
     else:
         update.effective_message.reply_text(
-            "Please reply to a gif to get its ID.")
+            "Bir gifə yanıt ver.")
 
 
 @run_async
@@ -217,29 +217,29 @@ def info(update: Update, context: CallbackContext):
         (len(args) >= 1 and not args[0].startswith("@") and
          not args[0].isdigit() and
          not message.parse_entities([MessageEntity.TEXT_MENTION]))):
-        message.reply_text("I can't extract a user from this.")
+        message.reply_text("Bu istifadəçini bu yolla tapa bilmədim. Başqa cür sına.")
         return
 
     else:
         return
 
     rep = message.reply_text(
-        "<code>Appraising...</code>", parse_mode=ParseMode.HTML)
+        "<code>Gətirilir...</code>", parse_mode=ParseMode.HTML)
 
-    text = (f"╒═══「<b> Appraisal results:</b> 」\n"
+    text = (f"╒═══「<b> Məlumat:</b> 」\n"
             f"ID: <code>{user.id}</code>\n"
-            f"First Name: {html.escape(user.first_name)}")
+            f"Ad: {html.escape(user.first_name)}")
 
     if user.last_name:
-        text += f"\nLast Name: {html.escape(user.last_name)}"
+        text += f"\nSoyad: {html.escape(user.last_name)}"
 
     if user.username:
         text += f"\nUsername: @{html.escape(user.username)}"
 
-    text += f"\nPermalink: {mention_html(user.id, 'link')}"
+    text += f"\nLink: {mention_html(user.id, 'link')}"
 
     if chat.type != "private" and user_id != bot.id:
-        _stext = "\nPresence: <code>{}</code>"
+        _stext = "\nVarlıq: <code>{}</code>"
 
         afk_st = is_afk(user.id)
         if afk_st:
@@ -248,21 +248,21 @@ def info(update: Update, context: CallbackContext):
             status = status = bot.get_chat_member(chat.id, user.id).status
             if status:
                 if status in {"left", "kicked"}:
-                    text += _stext.format("Not here")
+                    text += _stext.format("Burada yoxdur")
                 elif status == "member":
-                    text += _stext.format("Detected")
+                    text += _stext.format("Buradadır")
                 elif status in {"administrator", "creator"}:
-                    text += _stext.format("Admin")
+                    text += _stext.format("Admindir")
     if user_id not in [bot.id, 777000, 1087968824]:
         userhp = hpmanager(user)
-        text += f"\n\n<b>Health:</b> <code>{userhp['earnedhp']}/{userhp['totalhp']}</code>\n[<i>{make_bar(int(userhp['percentage']))} </i>{userhp['percentage']}%]"
+        text += f"\n\n<b>HP xalı:</b> <code>{userhp['earnedhp']}/{userhp['totalhp']}</code>\n[<i>{make_bar(int(userhp['percentage']))} </i>{userhp['percentage']}%]"
 
     try:
         spamwtc = sw.get_ban(int(user.id))
         if spamwtc:
-            text += "\n\n<b>This person is Spamwatched!</b>"
-            text += f"\nReason: <pre>{spamwtc.reason}</pre>"
-            text += "\nAppeal at @SpamWatchSupport"
+            text += "\n\n<b>Bu istifadəçi SpamWatch'landı!</b>"
+            text += f"\nSəbəb: <pre>{spamwtc.reason}</pre>"
+            text += "\nBuraya müraciət edin @SpamWatchSupport"
         else:
             pass
     except:
@@ -271,22 +271,22 @@ def info(update: Update, context: CallbackContext):
     disaster_level_present = False
 
     if user.id == OWNER_ID:
-        text += "\n\nThe Disaster level of this person is 'God'."
+        text += "\n\nBotdakı rütbəsi 'Tanrı'."
         disaster_level_present = True
     elif user.id in DEV_USERS:
-        text += "\n\nThis user is member of 'Hero Association'."
+        text += "\n\nBotdakı rütbəsi 'Qəhrəmanlar assosasiyası'."
         disaster_level_present = True
     elif user.id in DRAGONS:
-        text += "\n\nThe Disaster level of this person is 'Dragon'."
+        text += "\n\nBotdakı rütbəsi 'Əjdərha'."
         disaster_level_present = True
     elif user.id in DEMONS:
-        text += "\n\nThe Disaster level of this person is 'Demon'."
+        text += "\n\nBotdakı rütbəsi 'Şeytan'."
         disaster_level_present = True
     elif user.id in TIGERS:
-        text += "\n\nThe Disaster level of this person is 'Tiger'."
+        text += "\n\nBotdakı rütbəsi 'Pələng'."
         disaster_level_present = True
     elif user.id in WOLVES:
-        text += "\n\nThe Disaster level of this person is 'Wolf'."
+        text += "\n\nBotdakı rütbəsi 'Canavar'."
         disaster_level_present = True
 
     if disaster_level_present:
@@ -302,7 +302,7 @@ def info(update: Update, context: CallbackContext):
             result = result.json()["result"]
             if "custom_title" in result.keys():
                 custom_title = result['custom_title']
-                text += f"\n\nTitle:\n<b>{custom_title}</b>"
+                text += f"\n\nBaşlıq:\n<b>{custom_title}</b>"
     except BadRequest:
         pass
 
@@ -360,10 +360,10 @@ def about_me(update: Update, context: CallbackContext):
     elif message.reply_to_message:
         username = message.reply_to_message.from_user.first_name
         update.effective_message.reply_text(
-            f"{username} hasn't set an info message about themselves yet!")
+            f"{username} özü haqqında bir şey yazmayıb!")
     else:
         update.effective_message.reply_text(
-            "There isnt one, use /setme to set one.")
+            "Özün haqqında bir şey yoxdur. /setme ilə əlavə edə bilərsən.")
 
 
 @run_async
@@ -371,7 +371,7 @@ def set_about_me(update: Update, context: CallbackContext):
     message = update.effective_message
     user_id = message.from_user.id
     if user_id in [777000, 1087968824]:
-        message.reply_text("Error! Unauthorized")
+        message.reply_text("Error!")
         return
     bot = context.bot
     if message.reply_to_message:
@@ -386,7 +386,7 @@ def set_about_me(update: Update, context: CallbackContext):
         if len(info[1]) < MAX_MESSAGE_LENGTH // 4:
             sql.set_user_me_info(user_id, info[1])
             if user_id in [777000, 1087968824]:
-                message.reply_text("Authorized...Information updated!")
+                message.reply_text("Dəqiqləşdirildi...Məlumat güncəlləndi!")
             elif user_id == bot.id:
                 message.reply_text(
                     "I have updated my info with the one you provided!")
