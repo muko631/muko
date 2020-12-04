@@ -60,11 +60,11 @@ def new_fed(update: Update, context: CallbackContext):
     message = update.effective_message
     if chat.type != "private":
         update.effective_message.reply_text(
-            "Federations can only be created by privately messaging me.")
+            "Federasiya yaratmaq üçün mənimlə PM-də əlaqəyə keç.")
         return
     if len(message.text) == 1:
         send_message(update.effective_message,
-                     "Please write the name of the federation!")
+                     "Federesasiya üçün bir ad verməlisən!")
         return
     fednam = message.text.split(None, 1)[1]
     if not fednam == '':
@@ -79,26 +79,26 @@ def new_fed(update: Update, context: CallbackContext):
         x = sql.new_fed(user.id, fed_name, fed_id)
         if not x:
             update.effective_message.reply_text(
-                "Can't federate! Please contact @OnePunchSupport if the problem persist."
+                "Federasiyanı yaratmaq uğursuz oldu."
             )
             return
 
-        update.effective_message.reply_text("*You have succeeded in creating a new federation!*"\
-                 "\nName: `{}`"\
+        update.effective_message.reply_text("*Uğurla federasiya yaratdın!*"\
+                 "\nAd: `{}`"\
                  "\nID: `{}`"
-                 "\n\nUse the command below to join the federation:"
+                 "\n\nAşağıdakı əmr ilə qruplarınızı fedə qoşa bilərsiniz:"
                  "\n`/joinfed {}`".format(fed_name, fed_id, fed_id), parse_mode=ParseMode.MARKDOWN)
         try:
             bot.send_message(
                 EVENT_LOGS,
-                "New Federation: <b>{}</b>\nID: <pre>{}</pre>".format(
+                "Yeni federasiya: <b>{}</b>\nID: <pre>{}</pre>".format(
                     fed_name, fed_id),
                 parse_mode=ParseMode.HTML)
         except:
             LOGGER.warning("Cannot send a message to EVENT_LOGS")
     else:
         update.effective_message.reply_text(
-            "Please write down the name of the federation")
+            "Zəhmət olmasa aşağıda federasiya üçün ad yaz")
 
 
 @run_async
@@ -108,7 +108,7 @@ def del_fed(update: Update, context: CallbackContext):
     user = update.effective_user
     if chat.type != "private":
         update.effective_message.reply_text(
-            "Federations can only be deleted by privately messaging me.")
+            "Federasiya silmək üçün PM-də əlaqəyə keç.")
         return
     if args:
         is_fed_id = args[0]
