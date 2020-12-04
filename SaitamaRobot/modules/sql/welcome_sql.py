@@ -7,8 +7,8 @@ from SaitamaRobot.modules.sql import BASE, SESSION
 from sqlalchemy import (BigInteger, Boolean, Column, Integer, String,
                         UnicodeText)
 
-DEFAULT_WELCOME = 'Hey {first}, how are you?'
-DEFAULT_GOODBYE = 'Nice knowing ya!'
+DEFAULT_WELCOME = 'Hey {first}, xoşgəldin necəsən?'
+DEFAULT_GOODBYE = 'Get və gəlmə!'
 
 DEFAULT_WELCOME_MESSAGES = [
     "{first} is here!",  #Discord welcome messages copied
