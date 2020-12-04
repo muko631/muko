@@ -63,61 +63,61 @@ def gban(update: Update, context: CallbackContext):
 
     if not user_id:
         message.reply_text(
-            "You don't seem to be referring to a user or the ID specified is incorrect.."
+            "Bir istifadəçiyə istinad etmirsiniz.."
         )
         return
 
     if int(user_id) in DEV_USERS:
         message.reply_text(
-            "That user is part of the Association\nI can't act against our own."
+            "Bu istifadəçi PakizəTeam-in bir parçasıdır\nOna qarşı bunu edə bilmərəm."
         )
         return
 
     if int(user_id) in DRAGONS:
         message.reply_text(
-            "I spy, with my little eye... a disaster! Why are you guys turning on each other?"
+            "Mən balaca gözlərim ilə ağlayıram... sudo istifadəçi müharibəsi! Siz niyə bir birinizə bunu edirsiniz?"
         )
         return
 
     if int(user_id) in DEMONS:
         message.reply_text(
-            "OOOH someone's trying to gban a Demon Disaster! *grabs popcorn*")
+            "OOOH kimsə şeytan istifadəçimizi gban etməyə çalışır! *əlinə popkorn alaraq*")
         return
 
     if int(user_id) in TIGERS:
-        message.reply_text("That's a Tiger! They cannot be banned!")
+        message.reply_text("O pələngdir! Banlana bilməz!")
         return
 
     if int(user_id) in WOLVES:
-        message.reply_text("That's a Wolf! They cannot be banned!")
+        message.reply_text("yox, o bir Canavardır! Banlana bilmirlər!")
         return
 
     if user_id == bot.id:
-        message.reply_text("You uhh...want me to punch myself?")
+        message.reply_text("hə hə gözlə özümü gban edim?")
         return
 
     if user_id in [777000, 1087968824]:
-        message.reply_text("Fool! You can't attack Telegram's native tech!")
+        message.reply_text("Axmaq! Telegrama hücum çəkməyə çalışır!")
         return
 
     try:
         user_chat = bot.get_chat(user_id)
     except BadRequest as excp:
         if excp.message == "User not found":
-            message.reply_text("I can't seem to find this user.")
+            message.reply_text("İstifadəçi tapılmadı.")
             return ""
         else:
             return
 
     if user_chat.type != 'private':
-        message.reply_text("That's not a user!")
+        message.reply_text("Bu bir istifadəçi deyil!")
         return
 
     if sql.is_user_gbanned(user_id):
 
         if not reason:
             message.reply_text(
-                "This user is already gbanned; I'd change the reason, but you haven't given me one..."
+                "Bu istifadəçi onsuz da gban edilib; Səbəbi dəyişərdim amma bir səbəb verməmisən..."
             )
             return
 
@@ -125,20 +125,20 @@ def gban(update: Update, context: CallbackContext):
             user_id, user_chat.username or user_chat.first_name, reason)
         if old_reason:
             message.reply_text(
-                "This user is already gbanned, for the following reason:\n"
+                "Bu istifadəçi onsuz da gban edilib, köhnə səbəb:\n"
                 "<code>{}</code>\n"
-                "I've gone and updated it with your new reason!".format(
+                "Mən köhnə səbəbi yenisi ilə əvəz etdim!".format(
                     html.escape(old_reason)),
                 parse_mode=ParseMode.HTML)
 
         else:
             message.reply_text(
-                "This user is already gbanned, but had no reason set; I've gone and updated it!"
+                "Bu istifadəçi onsuz da gban edilib, amma bir səbəb verilməmişdi; Artıq bir səbəb var!"
             )
 
         return
 
-    message.reply_text("On it!")
+    message.reply_text("za!")
 
     start_time = time.time()
     datetime_fmt = "%Y-%m-%dT%H:%M"
@@ -160,9 +160,9 @@ def gban(update: Update, context: CallbackContext):
 
     if reason:
         if chat.type == chat.SUPERGROUP and chat.username:
-            log_message += f"\n<b>Reason:</b> <a href=\"https://telegram.me/{chat.username}/{message.message_id}\">{reason}</a>"
+            log_message += f"\n<b>Səbəb:</b> <a href=\"https://telegram.me/{chat.username}/{message.message_id}\">{reason}</a>"
         else:
-            log_message += f"\n<b>Reason:</b> <code>{reason}</code>"
+            log_message += f"\n<b>Səbəb:</b> <code>{reason}</code>"
 
     if EVENT_LOGS:
         try:
@@ -196,15 +196,15 @@ def gban(update: Update, context: CallbackContext):
             if excp.message in GBAN_ERRORS:
                 pass
             else:
-                message.reply_text(f"Could not gban due to: {excp.message}")
+                message.reply_text(f"Gban etmək mümkün olmadı. Xəta: {excp.message}")
                 if EVENT_LOGS:
                     bot.send_message(
                         EVENT_LOGS,
-                        f"Could not gban due to {excp.message}",
+                        f"Gban etmək mümkün olmadı. Xəta: {excp.message}",
                         parse_mode=ParseMode.HTML)
                 else:
                     send_to_list(bot, DRAGONS + DEMONS,
-                                 f"Could not gban due to: {excp.message}")
+                                 f"Gban etmək olmadı. Xəta: {excp.message}")
                 sql.ungban_user(user_id)
                 return
         except TelegramError:
@@ -219,7 +219,7 @@ def gban(update: Update, context: CallbackContext):
         send_to_list(
             bot,
             DRAGONS + DEMONS,
-            f"Gban complete! (User banned in <code>{gbanned_chats}</code> chats)",
+            f"ban tamamlandı! (İstifadəçi <code>{gbanned_chats}</code> qrupdan banlandı)",
             html=True)
 
     end_time = time.time()
@@ -227,9 +227,9 @@ def gban(update: Update, context: CallbackContext):
 
     if gban_time > 60:
         gban_time = round((gban_time / 60), 2)
-        message.reply_text("Done! Gbanned.", parse_mode=ParseMode.HTML)
+        message.reply_text("Hazır! Gban edildi.", parse_mode=ParseMode.HTML)
     else:
-        message.reply_text("Done! Gbanned.", parse_mode=ParseMode.HTML)
+        message.reply_text("Hazır! Gban edildi.", parse_mode=ParseMode.HTML)
 
     try:
         bot.send_message(
