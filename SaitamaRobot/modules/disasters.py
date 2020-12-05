@@ -122,16 +122,16 @@ def addsupport(
         data = json.load(infile)
 
     if user_id in DRAGONS:
-        rt += "Requested HA to deomote this Dragon to Demon"
+        rt += "Əjdaha Şeytan edilir"
         data['sudos'].remove(user_id)
         DRAGONS.remove(user_id)
 
     if user_id in DEMONS:
-        message.reply_text("This user is already a Demon Disaster.")
+        message.reply_text("Bu onsuz da Şeytandır.")
         return ""
 
     if user_id in WOLVES:
-        rt += "Requested HA to promote this Wolf Disaster to Demon"
+        rt += "Canavar Şeytana dönür"
         data['whitelists'].remove(user_id)
         WOLVES.remove(user_id)
 
@@ -142,7 +142,7 @@ def addsupport(
         json.dump(data, outfile, indent=4)
 
     update.effective_message.reply_text(
-        rt + f"\n{user_member.first_name} was added as a Demon Disaster!")
+        rt + f"\n{user_member.first_name} artıq Şeytandır!")
 
     log_message = (
         f"#SUPPORT\n"
@@ -177,17 +177,17 @@ def addwhitelist(update: Update, context: CallbackContext) -> str:
         data = json.load(infile)
 
     if user_id in DRAGONS:
-        rt += "This member is a Dragon Disaster, Demoting to Wolf."
+        rt += "Əjdaha Canavara çevrilir."
         data['sudos'].remove(user_id)
         DRAGONS.remove(user_id)
 
     if user_id in DEMONS:
-        rt += "This user is already a Demon Disaster, Demoting to Wolf."
+        rt += "Şeytan Canavara dönür."
         data['supports'].remove(user_id)
         DEMONS.remove(user_id)
 
     if user_id in WOLVES:
-        message.reply_text("This user is already a Wolf Disaster.")
+        message.reply_text("Bu onsuz da Canavardır.")
         return ""
 
     data['whitelists'].append(user_id)
@@ -198,7 +198,7 @@ def addwhitelist(update: Update, context: CallbackContext) -> str:
 
     update.effective_message.reply_text(
         rt +
-        f"\nSuccessfully promoted {user_member.first_name} to a Wolf Disaster!")
+        f"\n{user_member.first_name} artıq Canavardır!")
 
     log_message = (
         f"#WHITELIST\n"
@@ -233,22 +233,22 @@ def addtiger(update: Update, context: CallbackContext) -> str:
         data = json.load(infile)
 
     if user_id in DRAGONS:
-        rt += "This member is a Dragon Disaster, Demoting to Tiger."
+        rt += "Əjdaha Pələngə çevrilir."
         data['sudos'].remove(user_id)
         DRAGONS.remove(user_id)
 
     if user_id in DEMONS:
-        rt += "This user is already a Demon Disaster, Demoting to Tiger."
+        rt += "Şeytan Pələng edilir."
         data['supports'].remove(user_id)
         DEMONS.remove(user_id)
 
     if user_id in WOLVES:
-        rt += "This user is already a Wolf Disaster, Demoting to Tiger."
+        rt += "Canavar Pələngə çevrilir."
         data['whitelists'].remove(user_id)
         WOLVES.remove(user_id)
 
     if user_id in TIGERS:
-        message.reply_text("This user is already a Tiger.")
+        message.reply_text("Bu onsuz da pələngdir.")
         return ""
 
     data['tigers'].append(user_id)
@@ -259,7 +259,7 @@ def addtiger(update: Update, context: CallbackContext) -> str:
 
     update.effective_message.reply_text(
         rt +
-        f"\nSuccessfully promoted {user_member.first_name} to a Tiger Disaster!"
+        f"\n{user_member.first_name} artıq Pələngdir!"
     )
 
     log_message = (
@@ -294,7 +294,7 @@ def removesudo(update: Update, context: CallbackContext) -> str:
         data = json.load(infile)
 
     if user_id in DRAGONS:
-        message.reply_text("Requested HA to demote this user to Civilian")
+        message.reply_text("Əjdərha sadə bir vətəndaşa çevrilir")
         DRAGONS.remove(user_id)
         data['sudos'].remove(user_id)
 
@@ -314,7 +314,7 @@ def removesudo(update: Update, context: CallbackContext) -> str:
         return log_message
 
     else:
-        message.reply_text("This user is not a Dragon Disaster!")
+        message.reply_text("Bu Əjdərha deyil!")
         return ""
 
 
@@ -338,7 +338,7 @@ def removesupport(update: Update, context: CallbackContext) -> str:
         data = json.load(infile)
 
     if user_id in DEMONS:
-        message.reply_text("Requested HA to demote this user to Civilian")
+        message.reply_text("Şeytan sadə bir vətəndaşa çevrilir")
         DEMONS.remove(user_id)
         data['supports'].remove(user_id)
 
@@ -357,7 +357,7 @@ def removesupport(update: Update, context: CallbackContext) -> str:
         return log_message
 
     else:
-        message.reply_text("This user is not a Demon level Disaster!")
+        message.reply_text("Bu Şeytan deyil!")
         return ""
 
 
@@ -381,7 +381,7 @@ def removewhitelist(update: Update, context: CallbackContext) -> str:
         data = json.load(infile)
 
     if user_id in WOLVES:
-        message.reply_text("Demoting to normal user")
+        message.reply_text("Canavar sadə Vətəndaşa çevrilir")
         WOLVES.remove(user_id)
         data['whitelists'].remove(user_id)
 
@@ -399,7 +399,7 @@ def removewhitelist(update: Update, context: CallbackContext) -> str:
 
         return log_message
     else:
-        message.reply_text("This user is not a Wolf Disaster!")
+        message.reply_text("Bu Canavar deyil!")
         return ""
 
 
@@ -423,7 +423,7 @@ def removetiger(update: Update, context: CallbackContext) -> str:
         data = json.load(infile)
 
     if user_id in TIGERS:
-        message.reply_text("Demoting to normal user")
+        message.reply_text("Pələng sadə bir vətəndaşa çevrilir")
         TIGERS.remove(user_id)
         data['tigers'].remove(user_id)
 
@@ -441,14 +441,14 @@ def removetiger(update: Update, context: CallbackContext) -> str:
 
         return log_message
     else:
-        message.reply_text("This user is not a Tiger Disaster!")
+        message.reply_text("Bu pələng deyil!")
         return ""
 
 
 @run_async
 @whitelist_plus
 def whitelistlist(update: Update, context: CallbackContext):
-    reply = "<b>Known Wolf Disasters 🐺:</b>\n"
+    reply = "<b>PakizəTeam Canavarları 🐺:</b>\n"
     bot = context.bot
     for each_user in WOLVES:
         user_id = int(each_user)
@@ -464,7 +464,7 @@ def whitelistlist(update: Update, context: CallbackContext):
 @run_async
 @whitelist_plus
 def tigerlist(update: Update, context: CallbackContext):
-    reply = "<b>Known Tiger Disasters 🐯:</b>\n"
+    reply = "<b>PakizəTeam Pələngləri 🐯:</b>\n"
     bot = context.bot
     for each_user in TIGERS:
         user_id = int(each_user)
@@ -480,7 +480,7 @@ def tigerlist(update: Update, context: CallbackContext):
 @whitelist_plus
 def supportlist(update: Update, context: CallbackContext):
     bot = context.bot
-    reply = "<b>Known Demon Disasters 👹:</b>\n"
+    reply = "<b>PakizəTeam Şeytanları 👹:</b>\n"
     for each_user in DEMONS:
         user_id = int(each_user)
         try:
@@ -496,7 +496,7 @@ def supportlist(update: Update, context: CallbackContext):
 def sudolist(update: Update, context: CallbackContext):
     bot = context.bot
     true_sudo = list(set(DRAGONS) - set(DEV_USERS))
-    reply = "<b>Known Dragon Disasters 🐉:</b>\n"
+    reply = "<b>PakizəTeam Əjdərhaları 🐉:</b>\n"
     for each_user in true_sudo:
         user_id = int(each_user)
         try:
@@ -512,7 +512,7 @@ def sudolist(update: Update, context: CallbackContext):
 def devlist(update: Update, context: CallbackContext):
     bot = context.bot
     true_dev = list(set(DEV_USERS) - {OWNER_ID})
-    reply = "<b>Hero Association Members ⚡️:</b>\n"
+    reply = "<b>Qəhrəmanlar Assosasiyası Üzvləri ⚡️:</b>\n"
     for each_user in true_dev:
         user_id = int(each_user)
         try:
@@ -524,73 +524,61 @@ def devlist(update: Update, context: CallbackContext):
 
 
 __help__ = f"""
-*⚠️ Notice:*
-Commands listed here only work for users with special access are mainly used for troubleshooting, debugging purposes.
-Group admins/group owners do not need these commands. 
+*⚠️ Diqqət:*
+Aşağıdakı əmrləri yalnız bot adminləri istifadə edə bilər. Qrup sahibləri/adminləri yox. 
 
- ╔ *List all special users:*
- ╠ `/dragons`*:* Lists all Dragon disasters
- ╠ `/demons`*:* Lists all Demon disasters
- ╠ `/tigers`*:* Lists all Tigers disasters
- ╠ `/wolves`*:* Lists all Wolf disasters
- ╚ `/heroes`*:* Lists all Hero Association members
+ ╔ *Bot adminlərinin siyahısı:*
+ ╠ `/dragons`*:* Əjdərhalar
+ ╠ `/demons`*:* Şeytanlar
+ ╠ `/tigers`*:* Pələnglər
+ ╠ `/wolves`*:* Canavarlar
+ ╚ `/heroes`*:* Qəhrəmanlar Assosasiyası
 
  ╔ *Ping:*
- ╠ `/ping`*:* gets ping time of bot to telegram server
- ╚ `/pingall`*:* gets all listed ping times
+ ╠ `/ping`*:* botun Telegram serverindəki pingi
+ ╚ `/pingall`*:* ümumi ping
 
- ╔ *Broadcast: (Bot owner only)*
- ╠  *Note:* This supports basic markdown
- ╠ `/broadcastall`*:* Broadcasts everywhere
- ╠ `/broadcastusers`*:* Broadcasts too all users
- ╚ `/broadcastgroups`*:* Broadcasts too all groups
+ ╔ *Yayım: (sadəcə bot sahibi üçün)*
+ ╠  *Qeyd:* Xüsusi ştriftə olmur
+ ╠ `/broadcastall`*:* Həryerdə yayım edir
+ ╠ `/broadcastusers`*:* istifadəçilərə PM-də yayım edir
+ ╚ `/broadcastgroups`*:* Qruplarda yayım edir
 
- ╔ *Groups Info:*
- ╠ `/groups`*:* List the groups with Name, ID, members count as a txt
- ╚ `/getchats`*:* Gets a list of group names the user has been seen in. Bot owner only
+ ╔ *Qruplar:*
+ ╚ `/groups`*:* botun olduğu qrupları göstərir
 
- ╔ *Blacklist:* 
- ╠ `/ignore`*:* Blacklists a user from 
- ╠  using the bot entirely
- ╚ `/notice`*:* Whitelists the user to allow bot usage
+ ╔ *Qara siyahı:* 
+ ╠ `/ignore`*:* İstifadəçini qara siyahıya salır
+ ╚ `/notice`*:* istifadəçini qara siyahıdan silir
 
  ╔ *Speedtest:*
- ╚ `/speedtest`*:* Runs a speedtest and gives you 2 options to choose from, text or image output
+ ╚ `/speedtest`*:* şəkilli və ya yazılı formada speedtest edir
 
- ╔ *Global Bans:*
- ╠ `/gban user reason`*:* Globally bans a user
- ╚ `/ungban user reason`*:* Unbans the user from the global bans list
+ ╔ *Qlobal Ban:*
+ ╠ `/gban istifadəçi səbəb`*:* istifadəçini botun olduğu qruplardan banlayır
+ ╚ `/ungban user reason`*:* istifadəçinin qlobal banını silir
 
- ╔ *Module loading:*
- ╠ `/listmodules`*:* Lists names of all modules
- ╠ `/load modulename`*:* Loads the said module to 
- ╠   memory without restarting.
- ╠ `/unload modulename`*:* Loads the said module from
- ╚   memory without restarting.memory without restarting the bot 
+ ╔ *Modul yükləmək:*
+ ╠ `/listmodules`*:* bütün modulları göstərir
+ ╠ `/load modulename`*:* modulu yaddaşa yükləyir.
+ ╚ `/unload modulename`*:* Yüklənən moduli yaddaşdan silir 
 
- ╔ *Remote commands:*
- ╠ `/rban user group`*:* Remote ban
- ╠ `/runban user group`*:* Remote un-ban
- ╠ `/rpunch user group`*:* Remote punch
- ╠ `/rmute user group`*:* Remote mute
- ╠ `/runmute user group`*:* Remote un-mute
- ╚ `/ginfo username/link/ID`*:* Pulls info panel for entire group
+ ╔ *Uzaqdan idarəetmək:*
+ ╠ `/rban istifadəçi qrup`*:* istifadəçini qrupdan banlayır
+ ╠ `/runban istifadəçi qrup`*:* idtifadəçinin qrupdan banını silir
+ ╠ `/rpunch istifadəçi qrup`*:* istifadəçini qrupdan atır
+ ╠ `/rmute istifadəçi qrup`*:* susdurur
+ ╠ `/runmute istifadəçi qrup`*:* Remote un-mute
+ ╚ `/ginfo username/link/ID`*:* məlumat
 
- ╔ *Windows self hosted only:*
- ╠ `/reboot`*:* Restarts the bots service
- ╚ `/gitpull`*:* Pulls the repo and then restarts the bots service
 
- ╔ *Chatbot:* 
- ╚ `/listaichats`*:* Lists the chats the chatmode is enabled in
- 
- ╔ *Debugging and Shell:* 
+ ╔ *Debugging və Shell:* 
  ╠ `/debug <on/off>`*:* Logs commands to updates.txt
- ╠ `/logs`*:* Run this in support group to get logs in pm
+ ╠ `/logs`*:* support qrupunda yazanda şəxsidən log atır
  ╠ `/eval`*:* Self explanatory
- ╠ `/sh`*:* Self explanator
- ╚ `/py`*:* Self explanatory
+ ╠ `/sh`*:* shell
+ ╚ `/py`*:* python
 
-Visit @{SUPPORT_CHAT} for more information.
 """
 
 SUDO_HANDLER = CommandHandler(("addsudo", "adddragon"), addsudo)
@@ -626,7 +614,7 @@ dispatcher.add_handler(SUPPORTLIST_HANDLER)
 dispatcher.add_handler(SUDOLIST_HANDLER)
 dispatcher.add_handler(DEVLIST_HANDLER)
 
-__mod_name__ = "Disasters"
+__mod_name__ = "Xüsusi"
 __handlers__ = [
     SUDO_HANDLER, SUPPORT_HANDLER, TIGER_HANDLER, WHITELIST_HANDLER,
     UNSUDO_HANDLER, UNSUPPORT_HANDLER, UNTIGER_HANDLER, UNWHITELIST_HANDLER,
