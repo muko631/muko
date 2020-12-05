@@ -841,11 +841,11 @@ def cleanservice(update: Update, context: CallbackContext) -> str:
             if var in ("no", "off"):
                 sql.set_clean_service(chat.id, False)
                 update.effective_message.reply_text(
-                    "Qarşılama mesajı silmə ayarı : off")
+                    "Servis mesajı silmə ayarı : off")
             elif var in ("yes", "on"):
                 sql.set_clean_service(chat.id, True)
                 update.effective_message.reply_text(
-                    "Qarşılama mesajı silmə ayarı : on")
+                    "Servis mesajı silmə ayarı : on")
             else:
                 update.effective_message.reply_text(
                     "Xətalı seçim", parse_mode=ParseMode.HTML)
@@ -857,11 +857,11 @@ def cleanservice(update: Update, context: CallbackContext) -> str:
         curr = sql.clean_service(chat.id)
         if curr:
             update.effective_message.reply_text(
-                "Qarşılama mesajı silmə ayarı : <code>on</code>",
+                "Servis mesajı silmə ayarı : <code>on</code>",
                 parse_mode=ParseMode.HTML)
         else:
             update.effective_message.reply_text(
-                "Qarşılama mesajı silmə ayarı: <code>off</code>",
+                "Servis mesajı silmə ayarı: <code>off</code>",
                 parse_mode=ParseMode.HTML)
 
 
@@ -1001,7 +1001,7 @@ __help__ = """
  • `/resetgoodbye`*:* Vida mesajını default vəziyyətinə qaytarar.
  • `/cleanwelcome <on/off>`*:* Qrupa eyni zamanda çox üzv qatıldıq da xoşgəldin mesajı spamı olmamasına üçün köhnə mesajı silər.
  • `/welcomemutehelp`*:* gives information about welcome mutes.
- • `/cleanservice <on/off>`*:* Telegramın welcome/left servis mesajlarını bağlıyar. 
+ • `/cleanservice <on/off>`*:* Telegramın welcome/left servis mesajlarını açar/bağlıyar. 
  *Nümunə:*
 user qrupa qatıldı, user qrupu tərk etdi.
 
