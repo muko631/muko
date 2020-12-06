@@ -135,7 +135,7 @@ def get_id(update: Update, context: CallbackContext):
 
             user = bot.get_chat(user_id)
             msg.reply_text(
-                f"{html.escape(user.first_name)} isitfadəçisinin ID: <code>{user.id}</code>.",
+                f"{html.escape(user.first_name)} istifadəçisinin ID: <code>{user.id}</code>.",
                 parse_mode=ParseMode.HTML)
 
     else:
