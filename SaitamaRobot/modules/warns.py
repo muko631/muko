@@ -460,7 +460,7 @@ def __chat_settings__(chat_id, user_id):
 
 
 __help__ = """
- • `/warns <isitfadəçi>`*:* istifadəçinin xəbərdarlıqlarını göstərir.
+ • `/warns <istifadəçi>`*:* istifadəçinin xəbərdarlıqlarını göstərir.
  • `/warnlist`*:* xəbərdarlıq filtrlərini göstərir
 
 *Sadəcə adminlər:*
