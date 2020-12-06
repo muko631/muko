@@ -17,7 +17,7 @@ def paste(update: Update, context: CallbackContext):
         data = message.text.split(None, 1)[1]
 
     else:
-        message.reply_text("What am I supposed to do with this?")
+        message.reply_text("Mənə bir mətn ver?")
         return
 
     key = requests.post(
@@ -27,7 +27,7 @@ def paste(update: Update, context: CallbackContext):
 
     url = f'https://nekobin.com/{key}'
 
-    reply_text = f'Nekofied to *Nekobin* : {url}'
+    reply_text = f'Nekobin -ə yapışdırıldı : {url}'
 
     message.reply_text(
         reply_text,
