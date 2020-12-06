@@ -1,6 +1,6 @@
 {
       "name": "PakizəRobot",
-      "description": "An Anime themed Telegram group management bot.",
+      "description": "Azərbaycanca olan çox funksiyalı qrup idarə botu.",
       "keywords": [
          "telegram",
          "anime",
@@ -24,12 +24,12 @@
          "value": ""
       },
       "API_ID": {
-         "description": "Get API_ID from my.telegram.org, used for telethon based modules.",
+         "description": "Telethon bazalı modullar üçün my.telegram.org adresindən Api ID alın.",
          "required": true,
          "value": ""
       },
       "API_HASH": {
-         "description": "Get API_HASH from my.telegram.org, used for telethon based modules.",
+         "description": "Telethon bazalı modullar üçün my.telegram.org adresindən Api Hash alın",
          "required": true,
          "value": ""
       },    
