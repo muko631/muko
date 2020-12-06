@@ -118,7 +118,7 @@ def send(update, message, keyboard, backup_message):
             msg = update.effective_message.reply_text(
                 markdown_parser(backup_message +
                                 "\nQeyd: Xüsusi mesaj"
-                                "göndərilərkən bir xəta baş verdi. Zəhmət olmaa, yeniləyin :)."),
+                                "göndərilərkən bir xəta baş verdi. Zəhmət olmasa, yeniləyin :)."),
                 parse_mode=ParseMode.MARKDOWN,
                 reply_to_message_id=reply,
             )
