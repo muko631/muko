@@ -143,7 +143,7 @@ def button(update: Update, context: CallbackContext) -> str:
         res = sql.remove_warn(user_id, chat.id)
         if res:
             update.effective_message.edit_text(
-                "Warn removed by {}.".format(
+                "Xəbərdarlıq {} tərəfindən silindi.".format(
                     mention_html(user.id, user.first_name)),
                 parse_mode=ParseMode.HTML)
             user_member = chat.get_member(user_id)
