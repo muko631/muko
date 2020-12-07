@@ -90,7 +90,7 @@ def totranslate(update: Update, context: CallbackContext):
 
 
 __help__ = """
-• `/tr` və ua `/tl` (dil kodu) yanıt verilən mesajı tərcümə edir
+• `/tr` və ya `/tl` (dil kodu) yanıt verilən mesajı tərcümə edir
 *Nümunə:* 
   `/tr az`*:* Azərbaycan dilinə tərcümə edir
   `/tr en-az`*:* İngilis dilindən Azərbaycan dilinə tərcümə edir
