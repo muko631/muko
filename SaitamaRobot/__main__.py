@@ -51,13 +51,13 @@ def get_readable_time(seconds: int) -> str:
 
 
 PM_START_TEXT = """
-Salam {} necəsən? mənim adım {}dir! 
+Salam {} necəsən? mənim adım {}! 
 Mən Azərbaycanca olan qrup idarə botuyam.
 Bütün əmrlər üçün klik et /help.
 """
 
 HELP_STRINGS = """
-Salamlar! Mənim adım *{}*dir.
+Salamlar! Mənim adım *{}*.
 Mənimlə birlikdə qruplarınızı idarə edə bilərsiniz.
 
 *Əsas* əmrlər:
