@@ -52,10 +52,10 @@ def ban(update: Update, context: CallbackContext) -> str:
     if is_user_ban_protected(chat, user_id, member) and user not in DEV_USERS:
         if user_id == OWNER_ID:
             message.reply_text(
-                "Nə? Sən mənim sahibim Rihad Ustanı banlamağa çalışırsan?mal")
+                "Nə? Sən mənim sahibimi banlamağa çalışırsan?mal")
             return log_message
         elif user_id in DEV_USERS:
-            message.reply_text("Bu şəxsə bumu etməyəcəm.")
+            message.reply_text("Bu şəxsə bunu etməyəcəm.")
             return log_message
         elif user_id in DRAGONS:
             message.reply_text(
@@ -72,7 +72,7 @@ def ban(update: Update, context: CallbackContext) -> str:
             )
             return log_message
         elif user_id in WOLVES:
-            message.reply_text("Canavar userlərimiz banlana bilmir! Çünki onlsr canavardı🐺")
+            message.reply_text("Canavar userlərimiz banlana bilmir! Çünki onlar canavardı🐺")
             return log_message
         else:
             message.reply_text("Bu istifadəçinin banlanmağa qarşı güclü müqaviməti var.")
