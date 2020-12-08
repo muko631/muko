@@ -404,7 +404,7 @@ def stats(update: Update, context: CallbackContext):
     process = subprocess.Popen(
         "neofetch --stdout", shell=True, text=True, stdout=subprocess.PIPE)
     output = process.communicate()[0]
-    stats = "<b>Current stats:</b>\n" + "\n" + output + "\n".join(
+    stats = "<b>Statistika:</b>\n" + "\n" + output + "\n".join(
         [mod.__stats__() for mod in STATS])
     result = re.sub(r'(\d+)', r'<code>\1</code>', stats)
     update.effective_message.reply_text(result, parse_mode=ParseMode.HTML)
@@ -431,11 +431,11 @@ def about_bio(update: Update, context: CallbackContext):
     elif message.reply_to_message:
         username = user.first_name
         update.effective_message.reply_text(
-            f"{username} hasn't had a message set about themselves yet!\nSet one using /setbio"
+            f"{username} özü haqqında bir şey yazmayıb!"
         )
     else:
         update.effective_message.reply_text(
-            "You haven't had a bio set about yourself yet!")
+            "Sən hələki özün haqqında məlumat yazmamısan!")
 
 
 @run_async
@@ -450,17 +450,17 @@ def set_about_bio(update: Update, context: CallbackContext):
 
         if user_id == message.from_user.id:
             message.reply_text(
-                "Ha, you can't set your own bio! You're at the mercy of others here..."
+                "Özün haqqında bir şey yaza bilmərsən. Bunu başqası eliyə bilər..."
             )
             return
 
         if user_id in [777000, 1087968824] and sender_id not in DEV_USERS:
-            message.reply_text("You are not authorised")
+            message.reply_text("yo")
             return
 
         if user_id == bot.id and sender_id not in DEV_USERS:
             message.reply_text(
-                "Erm... yeah, I only trust Heroes Association to set my bio.")
+                "hmm. Yox sən mənim haqqımda bir şey yaza bilmərsən.")
             return
 
         text = message.text
@@ -471,14 +471,14 @@ def set_about_bio(update: Update, context: CallbackContext):
         if len(bio) == 2:
             if len(bio[1]) < MAX_MESSAGE_LENGTH // 4:
                 sql.set_user_bio(user_id, bio[1])
-                message.reply_text("Updated {}'s bio!".format(
+                message.reply_text("{} istifadəçisinin biosu güncəlləndi!".format(
                     repl_message.from_user.first_name))
             else:
                 message.reply_text(
-                    "Bio needs to be under {} characters! You tried to set {}."
+                    "Bio {} simvoldan az olmalıdır! Sən {} simvoldan istifadə eləmisən."
                     .format(MAX_MESSAGE_LENGTH // 4, len(bio[1])))
     else:
-        message.reply_text("Reply to someone to set their bio!")
+        message.reply_text("Kiminsə mesajına yanıt ver!")
 
 
 def __user_info__(user_id):
@@ -486,37 +486,31 @@ def __user_info__(user_id):
     me = html.escape(sql.get_user_me_info(user_id) or "")
     result = ""
     if me:
-        result += f"<b>About user:</b>\n{me}\n"
+        result += f"<b>İstifadəçi haqqında:</b>\n{me}\n"
     if bio:
-        result += f"<b>What others say:</b>\n{bio}\n"
+        result += f"<b>Başqalarının dedikləri:</b>\n{bio}\n"
     result = result.strip("\n")
     return result
 
 
 __help__ = """
 *ID:*
- • `/id`*:* get the current group id. If used by replying to a message, gets that user's id.
- • `/gifid`*:* reply to a gif to me to tell you its file ID.
+ • `/id`*:* istifadəçi və ya qrup ID verir.
+ • `/gifid`*:* yanıt verilən gifin ID verir.
 
-*Self addded information:* 
- • `/setme <text>`*:* will set your info
- • `/me`*:* will get your or another user's info.
-Examples:
- `/setme I am a wolf.`
- `/me @username(defaults to yours if no user specified)`
+*Özü haqqında məlumat:* 
+ • `/setme <mətn>`*:* sənin özün haqqında məlumatı qeyd edir
+ • `/me`*:* başqası haqqında məlumat verir(başqalarının dedikləri).
 
-*Information others add on you:* 
- • `/bio`*:* will get your or another user's bio. This cannot be set by yourself.
-• `/setbio <text>`*:* while replying, will save another user's bio 
-Examples:
- `/bio @username(defaults to yours if not specified).`
- `/setbio This user is a wolf` (reply to the user)
+*başqası haqqında məlumatı yazmaq:* 
+ • `/bio`*:* sənin və ya başqasının məlumatınş verir.(başqalarının dedikləri əsasında).
+• `/setbio <mətn>`*:*  baçqası haqqında məlumatı yazır
 
-*Overall Information about you:*
- • `/info`*:* get information about a user. 
+*Ümumi məlumatı:*
+ • `/info`*:* istifadəçi haqqında ümumi məlumat verir. 
  
-*What is that health thingy?*
- Come and see [HP System explained](https://t.me/OnePunchUpdates/192)
+*HP Sistemi nədir?*
+ [HP Sistemi haqqında](https://t.me/OnePunchUpdates/192)
 """
 
 SET_BIO_HANDLER = DisableAbleCommandHandler("setbio", set_about_bio)
