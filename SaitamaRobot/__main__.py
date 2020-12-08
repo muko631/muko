@@ -204,12 +204,12 @@ def start(update: Update, context: CallbackContext):
                              url=f"https://t.me/{SUPPORT_CHAT}"),
                          InlineKeyboardButton(
                              text="🔔 Yeniliklər kanalı",
-                             url="https://t.me/rihads")
+                             url="https://t.me/PakizeRobotInfo")
                      ],
                      [
                          InlineKeyboardButton(
                              text="🧾 Botla bağlı məlumat",
-                             url="https://t.me/rihads")
+                             url="https://t.me/PakizeRobotInfo")
                      ],
                      [
                          InlineKeyboardButton(
