@@ -30,7 +30,7 @@ def add_chat(update: Update, context: CallbackContext):
     user = update.effective_user
     is_chat = sql.is_chat(chat.id)
     if chat.type == "private":
-        msg.reply_text("You can't enable AI in PM.")
+        msg.reply_text("AI şəxsidə aktiv edilə bilməz.")
         return
 
     if not is_chat:
@@ -38,7 +38,7 @@ def add_chat(update: Update, context: CallbackContext):
         ses_id = str(ses.id)
         expires = str(ses.expires)
         sql.set_ses(chat.id, ses_id, expires)
-        msg.reply_text("AI successfully enabled for this chat!")
+        msg.reply_text("AI bu qrup üçün aktiv edildi!")
         message = (
             f"<b>{html.escape(chat.title)}:</b>\n"
             f"#AI_ENABLED\n"
@@ -46,7 +46,7 @@ def add_chat(update: Update, context: CallbackContext):
         )
         return message
     else:
-        msg.reply_text("AI is already enabled for this chat!")
+        msg.reply_text("AI onsuz da bu qrupda aktivdir!")
         return ""
 
 
@@ -59,11 +59,11 @@ def remove_chat(update: Update, context: CallbackContext):
     user = update.effective_user
     is_chat = sql.is_chat(chat.id)
     if not is_chat:
-        msg.reply_text("AI isn't enabled here in the first place!")
+        msg.reply_text("AI burada aktiv edilməyib!")
         return ""
     else:
         sql.rem_chat(chat.id)
-        msg.reply_text("AI disabled successfully!")
+        msg.reply_text("AI deaktiv edildi!")
         message = (
             f"<b>{html.escape(chat.title)}:</b>\n"
             f"#AI_DISABLED\n"
@@ -120,7 +120,7 @@ def chatbot(update: Update, context: CallbackContext):
 @run_async
 def list_chatbot_chats(update: Update, context: CallbackContext):
     chats = sql.get_all_chats()
-    text = "<b>AI-Enabled Chats</b>\n"
+    text = "<b>AI aktiv olunan qruplar</b>\n"
     for chat in chats:
         try:
             x = context.bot.get_chat(int(*chat))
@@ -136,12 +136,11 @@ def list_chatbot_chats(update: Update, context: CallbackContext):
 
 
 __help__ = f"""
-Chatbot utilizes the CoffeeHouse API and allows Saitama to talk and provides a more interactive group chat experience.
-*Commands:* 
-*Admins only:*
- • `/addchat`*:* Enables Chatbot mode in the chat.
- • `/rmchat`*:* Disables Chatbot mode in the chat.
-Reports bugs at @{SUPPORT_CHAT}
+ChatBot aktiv edildikdə bot ilə ünsiyyət qurmaq olur. Söhbət edə bilərsiniz botla. Azərbaycan dili AI səbəbilə çox azdır. Amma türk dili daha genişdir
+*Əmrlər:* 
+*Sadəcə adminlər:*
+ • `/addchat`*:* Qrupda Chatbot aktiv edir.
+ • `/rmchat`*:* Qrupdakı Chatbot deaktiv edir.
 *Powered by CoffeeHouse* (https://coffeehouse.intellivoid.net/) from @Intellivoid
 """
 
