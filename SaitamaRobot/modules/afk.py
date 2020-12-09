@@ -29,7 +29,7 @@ def afk(update: Update, context: CallbackContext):
         reason = args[1]
         if len(reason) > 100:
             reason = reason[:100]
-            notice = "\nAFK səbəbi 100 simvolda çox ola bilməz."
+            notice = "\nAFK səbəbi 100 simvoldan çox ola bilməz."
     else:
         reason = ""
 
@@ -57,8 +57,8 @@ def no_longer_afk(update: Update, context: CallbackContext):
         firstname = update.effective_user.first_name
         try:
             options = [
-                '{} buradadıe!', '{} geri qayıtdı!', '{} artıq qrupdadı!',
-                '{} onlayndır!', '{} onlayndır!', '{} axırki buradadır!',
+                '{} buradadır!', '{} geri qayıtdı!', '{} artıq qrupdadır!',
+                '{} onlayndır!', '{} artıq onlayndır!', '{} axırki buradadır!',
                 'Xoşgəldin! {}', '{} haradadır?\nHaa qrupdaymış!'
             ]
             chosen_option = random.choice(options)
@@ -129,7 +129,7 @@ def check_afk(update, context, user_id, fst_name, userc_id):
         else:
             if int(userc_id) == int(user_id):
                 return
-            res = "{} AFK-dır.\nSəbəb: <code>{}</code>".format(
+            res = "{} hazırda AFK-dır.\nSəbəb: <code>{}</code>".format(
                 html.escape(fst_name), html.escape(user.reason))
             update.effective_message.reply_text(res, parse_mode="html")
 
