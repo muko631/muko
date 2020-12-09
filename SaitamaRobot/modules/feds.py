@@ -518,7 +518,7 @@ def fed_ban(update: Update, context: CallbackContext):
 
     if is_user_fed_admin(fed_id, user.id) is False:
         update.effective_message.reply_text(
-            "Bunu yalnız qrup adminləri edə bilər!")
+            "Bunu yalnız federasiya adminləri edə bilər!")
         return
 
     message = update.effective_message
