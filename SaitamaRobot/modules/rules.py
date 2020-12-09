@@ -54,7 +54,7 @@ def send_rules(update, chat_id, from_pm=False):
             ]]))
     else:
         update.effective_message.reply_text(
-            "Bu qrup admunləri hələ ki qaydalar yazmayıblar...!")
+            "Bu qrup adminləri hələ ki qaydalar yazmayıblar...!")
 
 
 @run_async
