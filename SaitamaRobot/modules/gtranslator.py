@@ -79,7 +79,7 @@ def totranslate(update: Update, context: CallbackContext):
             "Tərcümə ediləcək mətnə yanıt ver.\n\n"
             "Məsələn: `/tr en-az` İngilis dilindən Azərbaycan dilinə tərcümə edir\n"
             "Və ya: `/tr az` İstənilən mətni Azərbaycan dilinə tərcümə edir.\n"
-            "[Dil kodları](t.me/OnePunchSupport/12823) for a list of language codes.",
+            "[Dil kodları](t.me/OnePunchSupport/12823)",
             parse_mode="markdown",
             disable_web_page_preview=True)
     except ValueError:
