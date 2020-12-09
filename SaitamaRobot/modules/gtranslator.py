@@ -77,7 +77,7 @@ def totranslate(update: Update, context: CallbackContext):
     except IndexError:
         update.effective_message.reply_text(
             "Tərcümə ediləcək mətnə yanıt ver.\n\n"
-            "Məsələn: `/tr en-az` İngilis dilindən Azərbaycab dilinə tərcümə edir\n"
+            "Məsələn: `/tr en-az` İngilis dilindən Azərbaycan dilinə tərcümə edir\n"
             "Və ya: `/tr az` İstənilən mətni Azərbaycan dilinə tərcümə edir.\n"
             "[Dil kodları](t.me/OnePunchSupport/12823) for a list of language codes.",
             parse_mode="markdown",
