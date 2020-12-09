@@ -77,8 +77,8 @@ def totranslate(update: Update, context: CallbackContext):
     except IndexError:
         update.effective_message.reply_text(
             "Tərcümə ediləcək mətnə yanıt ver.\n\n"
-            "Məsələn: `/tr en-az` İngilis dilindən Azərbaycan dilinə tərcümə edir\n"
-            "Və ya: `/tr az` İstənilən mətni Azərbaycan dilinə tərcümə edir.\n"
+            "Məsələn: `/tr en-ru` İngilis dilindən Rus dilinə tərcümə edir\n"
+            "Və ya: `/tr en` İstənilən mətni İngilis dilinə tərcümə edir.\n"
             "[Dil kodları](t.me/OnePunchSupport/12823)",
             parse_mode="markdown",
             disable_web_page_preview=True)
@@ -92,8 +92,8 @@ def totranslate(update: Update, context: CallbackContext):
 __help__ = """
 • `/tr` və ya `/tl` (dil kodu) yanıt verilən mesajı tərcümə edir
 *Nümunə:* 
-  `/tr az`*:* Azərbaycan dilinə tərcümə edir
-  `/tr en-az`*:* İngilis dilindən Azərbaycan dilinə tərcümə edir
+  `/tr en`*:* İngilis dilinə tərcümə edir
+  `/tr en-ru`*:* İngilis dilindən Rus dilinə tərcümə edir
 """
 
 TRANSLATE_HANDLER = DisableAbleCommandHandler(["tr", "tl"], totranslate)
