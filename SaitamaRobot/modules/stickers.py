@@ -155,7 +155,7 @@ def kang(update: Update, context: CallbackContext):
                 )
                 msg.reply_text(
                     f"Stiker paketə əlavə olundu. Paket [burada](t.me/addstickers/{packname}) tapıla bilər"
-                    + f"\nEmoji is: {sticker_emoji}",
+                    + f"\nEmoji: {sticker_emoji}",
                     parse_mode=ParseMode.MARKDOWN,
                 )
 
@@ -250,7 +250,7 @@ def kang(update: Update, context: CallbackContext):
                     msg.reply_text(
                         "Stiker paketə əlavə olundu. Paket [burada](t.me/addstickers/%s) tapıla bilər"
                         % packname + "\n"
-                        "Emoji is:" + " " + sticker_emoji,
+                        "Emoji:" + " " + sticker_emoji,
                         parse_mode=ParseMode.MARKDOWN,
                     )
                 print(e)
@@ -293,7 +293,7 @@ def kang(update: Update, context: CallbackContext):
             )
             msg.reply_text(
                 f"Stiker paketə əlavə olundu. Paket [burada](t.me/addstickers/{packname}) tapıla bilər"
-                + f"\nEmoji is: {sticker_emoji}",
+                + f"\nEmoji: {sticker_emoji}",
                 parse_mode=ParseMode.MARKDOWN,
             )
         except OSError as e:
