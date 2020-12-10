@@ -16,14 +16,14 @@ def get_user_common_chats(update: Update, context: CallbackContext):
     msg = update.effective_message
     user = extract_user(msg, args)
     if not user:
-        msg.reply_text("I share no common chats with the void.")
+        msg.reply_text("Boşluq ilə heç bir ortaq qrupumda deyiləm.")
         return
     common_list = get_user_com_chats(user)
     if not common_list:
-        msg.reply_text("No common chats with this user!")
+        msg.reply_text("Bu istifadəçi ilə heç bir ortaq qrupda deyiləm!")
         return
     name = bot.get_chat(user).first_name
-    text = f"<b>Common chats with {name}</b>\n"
+    text = f"<b>{name} ilə ortaq qruplarım</b>\n"
     for chat in common_list:
         try:
             chat_name = bot.get_chat(chat).title
@@ -39,11 +39,11 @@ def get_user_common_chats(update: Update, context: CallbackContext):
     if len(text) < 4096:
         msg.reply_text(text, parse_mode="HTML")
     else:
-        with open("common_chats.txt", 'w') as f:
+        with open("ortaq_qruplar.txt", 'w') as f:
             f.write(text)
-        with open("common_chats.txt", 'rb') as f:
+        with open("ortaq_qruplar.txt", 'rb') as f:
             msg.reply_document(f)
-        os.remove("common_chats.txt")
+        os.remove("ortaq_qruplar.txt")
 
 
 COMMON_CHATS_HANDLER = CommandHandler(
