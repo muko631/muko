@@ -124,25 +124,25 @@ def check_afk(update, context, user_id, fst_name, userc_id):
         if not user.reason:
             if int(userc_id) == int(user_id):
                 return
-            res = "{} AFK-dır".format(fst_name)
+            res = "{} AFK olduğu üçün sizə cavab verə bilməyəcək. Qayıtmağını gözləyək.".format(fst_name)
             update.effective_message.reply_text(res)
         else:
             if int(userc_id) == int(user_id):
                 return
-            res = "{} hazırda AFK-dır.\nSəbəb: <code>{}</code>".format(
+            res = "{} mesajınızı ala bilməyəcək qədər uzaqdadır.\nSəbəb: <code>{}</code>".format(
                 html.escape(fst_name), html.escape(user.reason))
             update.effective_message.reply_text(res, parse_mode="html")
 
 
 __help__ = """
  • `/afk <səbəb>`*:* sizi afk olaraq qeyd edər.
- • `brb <səbəb>`*:* yuxarıdakı ilə eyni əmrdir amma əmr deyil.
+ • `afk <səbəb>`*:* yuxarıdakı ilə eyni əmrdir amma əmr deyil.
 Siz afk olanda kimsə sizi tag etsə, reply atsa bot ona cavab verəcəy
 """
 
 AFK_HANDLER = DisableAbleCommandHandler("afk", afk)
 AFK_REGEX_HANDLER = DisableAbleMessageHandler(
-    Filters.regex(r"^(?i)brb(.*)$"), afk, friendly="afk")
+    Filters.regex(r"^(?i)afk(.*)$"), afk, friendly="afk")
 NO_AFK_HANDLER = MessageHandler(Filters.all & Filters.group, no_longer_afk)
 AFK_REPLY_HANDLER = MessageHandler(Filters.all & Filters.group, reply_afk)
 
