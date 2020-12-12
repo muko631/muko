@@ -462,12 +462,12 @@ def fed_admin(update: Update, context: CallbackContext):
 
     if not fed_id:
         update.effective_message.reply_text(
-            "This group is not in any federation!")
+            "Bu qrup heç bir federasiyaya bağlı deyil!")
         return
 
     if is_user_fed_admin(fed_id, user.id) is False:
         update.effective_message.reply_text(
-            "Bunu yalnız qrup adminləri edə bilər!")
+            "Bunu yalnız federasiya adminləri edə bilər!")
         return
 
     user = update.effective_user
@@ -1126,7 +1126,7 @@ def fed_broadcast(update: Update, context: CallbackContext):
         chat_list = sql.all_fed_chats(fed_id)
         failed = 0
         for chat in chat_list:
-            title = "*{}* federasiyasının yayımı var.\n".format(fedinfo['fname'])
+            title = "*{}* federasiyasının bir mesajı var.\n\n".format(fedinfo['fname'])
             try:
                 bot.sendMessage(chat, title + text, parse_mode="markdown")
             except TelegramError:
