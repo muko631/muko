@@ -342,7 +342,7 @@ def get_help(update: Update, context: CallbackContext):
         send_help(
             chat.id, text,
             InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="Gerri",
+                [[InlineKeyboardButton(text="Geri",
                                        callback_data="help_back")]]))
 
     else:
