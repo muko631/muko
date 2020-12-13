@@ -34,51 +34,51 @@
          "value": ""
       },    
       "SQLALCHEMY_DATABASE_URI": {
-         "description": "Your postgres sql db, empty this field if you dont have one.",
+         "description": "postgres sql db, boş buraxa bilərsiniz.",
          "required": false,
          "value": "sqldbtype://username:pw@hostname:port/db_name"
       },      
       "OWNER_ID": {
-         "description": "Your user ID as an integer.",
+         "description": "Sənin User ID.",
          "required": true,
          "value": "792109647"
       },
       "OWNER_USERNAME": {
-         "description": "Your username without the @",
-         "value": "Sawada"
+         "description": "@ işarəsi olmadan username",
+         "value": "Rihad"
       },
       "SUPPORT_CHAT": {
-         "description": "Your Telegram support group chat username where your users will go and bother you with shit But be like: MyGroupChatUsernameBlah. If this ever points to saitama support than consider you made an enemy.",
+         "description": "Botunuzn Support qrupunun linki @ işarəsi olmadan. Öz qrupunuzu eliyin Pakizənin qrup linkini yox.",
          "required": true,
-         "value": "MyAwesomeSupportGroupGoesHere"
+         "value": "SupportQrupum"
       },
       "EVENT_LOGS": {
-         "description": "Event logs channel to note down important bot level events, recommend to make this public. ex: '-123456'",
+         "description": "Vacib hadisələrin saxlanacağı qrup/kanal ID",
          "required": true,
          "value": "-123456798"
       },
       "JOIN_LOGGER": {
-         "description": "A channel where bot will print who added it to what group, useful during debugging or spam handling.",
+         "description": "Botun əlavə olunduğu qruplar bu kanalda/qrupda saxlanılacaq",
          "required": true,
          "value": "-123456798"
       },      
       "CASH_API_KEY": {
-         "description": "Required for currency converter. Get yours from https://www.alphavantage.co/support/#api-key",
+         "description": "Valyuta modulu üçün API key. https://www.alphavantage.co/support/#api-key adresindən alın",
          "required": true,
          "value": "-xyz"
       },
       "TIME_API_KEY": {
-         "description": "Required for timezone information. Get yours from https://timezonedb.com/api",
+         "description": "Timezone modulu üçün API key. https://timezonedb.com/api adresindən alın",
          "required": true,
          "value": "-xyz"
       },
       "DEV_USERS": {
-         "description": "ID of users who are Devs of your bot (can use /py etc.). If you are a noob and would come and bother Saitama support then keep the current ID's here at they are and add yours.",
+         "description": "Bot developer'lərinin ID. Əgər yoxdursa hazırki ID ləri dəyişməyin.",
          "required": false,
          "value": "660565862 459034222 189005567 346981140 367222759"
       },
       "sw_api": {
-         "description": "Spamwatch API Token, Get one from @SpamWatchBot.",
+         "description": "Spamwatch API Token. @SpamWatchBot botundan alın.",
          "required": false,
          "value": ""
       }, 
