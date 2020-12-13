@@ -1,4 +1,4 @@
-[Pakizə](https://t.me/Pakizerobot) Azərbaycanca olan qrup idarə botudur. Tərcümə olunur tezliklə hazır olacaq.
+[Pakizə](https://t.me/Pakizerobot) Azərbaycanca olan qrup idarə botudur.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Mensimov/PakizeBot)
 
