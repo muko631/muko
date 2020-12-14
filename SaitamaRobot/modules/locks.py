@@ -197,7 +197,7 @@ def unrestr_members(bot,
 @run_async
 def locktypes(update, context):
     update.effective_message.reply_text(
-        "\n • ".join(["Locks available: "] +
+        "\n • ".join(["Kilidlənə bilənlər: "] +
                      sorted(list(LOCK_TYPES) + list(LOCK_CHAT_RESTRICTION))))
 
 
@@ -222,19 +222,19 @@ def lock(update, context) -> str:
                     chat = dispatcher.bot.getChat(conn)
                     chat_id = conn
                     chat_name = chat.title
-                    text = "Locked {} for non-admins in {}!".format(
-                        ltype, chat_name)
+                    text = "{} qrupunda {} kilidləndi!".format(
+                        chat_name, ltype)
                 else:
                     if update.effective_message.chat.type == "private":
                         send_message(
                             update.effective_message,
-                            "This command is meant to use in group not in PM",
+                            "Bu əmri qrupda işlədin",
                         )
                         return ""
                     chat = update.effective_chat
                     chat_id = update.effective_chat.id
                     chat_name = update.effective_message.chat.title
-                    text = "Locked {} for non-admins!".format(ltype)
+                    text = "{} kilidləndi!".format(ltype)
                 sql.update_lock(chat.id, ltype, locked=True)
                 send_message(
                     update.effective_message, text, parse_mode="markdown")
@@ -256,19 +256,19 @@ def lock(update, context) -> str:
                     chat = dispatcher.bot.getChat(conn)
                     chat_id = conn
                     chat_name = chat.title
-                    text = "Locked {} for all non-admins in {}!".format(
-                        ltype, chat_name)
+                    text = "{} qrupunda {} kilidləndi!".format(
+                        chat_name, ltype)
                 else:
                     if update.effective_message.chat.type == "private":
                         send_message(
                             update.effective_message,
-                            "This command is meant to use in group not in PM",
+                            "Bu əmri qrupda işlədin.",
                         )
                         return ""
                     chat = update.effective_chat
                     chat_id = update.effective_chat.id
                     chat_name = update.effective_message.chat.title
-                    text = "Locked {} for all non-admins!".format(ltype)
+                    text = "{} kilidləndi!".format(ltype)
 
                 current_permission = context.bot.getChat(chat_id).permissions
                 context.bot.set_chat_permissions(
@@ -293,16 +293,16 @@ def lock(update, context) -> str:
             else:
                 send_message(
                     update.effective_message,
-                    "What are you trying to lock...? Try /locktypes for the list of lockables",
+                    "Nəyi kilidləmək istəyirsənki...? /locktypes yazaraq mövcud kilidlərə baxa bilərsən.",
                 )
         else:
             send_message(update.effective_message,
-                         "What are you trying to lock...?")
+                         "Nəyi kilidləmək istəyirsənki...?")
 
     else:
         send_message(
             update.effective_message,
-            "I am not administrator or haven't got enough rights.",
+            "Admin deyiləm və ya lazımi səlahiyyətlərim yoxdur.",
         )
 
     return ""
@@ -328,19 +328,19 @@ def unlock(update, context) -> str:
                     chat = dispatcher.bot.getChat(conn)
                     chat_id = conn
                     chat_name = chat.title
-                    text = "Unlocked {} for everyone in {}!".format(
-                        ltype, chat_name)
+                    text = "{} qrupunda {} kilidi açıldı!".format(
+                        chat_name, ltype)
                 else:
                     if update.effective_message.chat.type == "private":
                         send_message(
                             update.effective_message,
-                            "This command is meant to use in group not in PM",
+                            "Bu əmri qrupda işlədin",
                         )
                         return ""
                     chat = update.effective_chat
                     chat_id = update.effective_chat.id
                     chat_name = update.effective_message.chat.title
-                    text = "Unlocked {} for everyone!".format(ltype)
+                    text = "{} kilidi açıldı!".format(ltype)
                 sql.update_lock(chat.id, ltype, locked=False)
                 send_message(
                     update.effective_message, text, parse_mode="markdown")
@@ -361,19 +361,19 @@ def unlock(update, context) -> str:
                     chat = dispatcher.bot.getChat(conn)
                     chat_id = conn
                     chat_name = chat.title
-                    text = "Unlocked {} for everyone in {}!".format(
-                        ltype, chat_name)
+                    text = "{} qrupunda {} kilidi açıldı!".format(
+                        chat_name, ltype)
                 else:
                     if update.effective_message.chat.type == "private":
                         send_message(
                             update.effective_message,
-                            "This command is meant to use in group not in PM",
+                            "Bu əmri qrupda işlədin",
                         )
                         return ""
                     chat = update.effective_chat
                     chat_id = update.effective_chat.id
                     chat_name = update.effective_message.chat.title
-                    text = "Unlocked {} for everyone!".format(ltype)
+                    text = "{} kilidi açıldı!".format(ltype)
 
                 current_permission = context.bot.getChat(chat_id).permissions
                 context.bot.set_chat_permissions(
@@ -398,12 +398,12 @@ def unlock(update, context) -> str:
             else:
                 send_message(
                     update.effective_message,
-                    "What are you trying to unlock...? Try /locktypes for the list of lockables.",
+                    "Nəyin kilidini açmaq istəyirsənki...? /locktypes yazaraq mövcud kilidlərə baxa bilərsən.",
                 )
 
         else:
             send_message(update.effective_message,
-                         "What are you trying to unlock...?")
+                         "Nəyin kilidini açmaq istəyirsənki...?")
 
     return ""
 
@@ -476,15 +476,14 @@ def del_lockables(update, context):
                         if not is_bot_admin(chat, context.bot.id):
                             send_message(
                                 update.effective_message,
-                                "I see a bot and I've been told to stop them from joining..."
-                                "but I'm not admin!",
+                                "Qrupa bot gəldiyini gördüm amma admin olmadığıma görə onu qrupdan ata bilmədim!",
                             )
                             return
 
                         chat.kick_member(new_mem.id)
                         send_message(
                             update.effective_message,
-                            "Only admins are allowed to add bots in this chat! Get outta here.",
+                            "Yalnız adminlər bu qrupa bot əlavə edə bilər! Rədd ol.",
                         )
                         break
             else:
@@ -505,7 +504,7 @@ def build_lock_message(chat_id):
     locklist = []
     permslist = []
     if locks:
-        res += "*" + "These are the current locks in this Chat:" + "*"
+        res += "*" + "Bu qrupdakı kilidlənənlər/kilidlənməyənlər:" + "*"
         if locks:
             locklist.append("sticker = `{}`".format(locks.sticker))
             locklist.append("audio = `{}`".format(locks.audio))
@@ -541,7 +540,7 @@ def build_lock_message(chat_id):
         # Building lock list string
         for x in locklist:
             res += "\n • {}".format(x)
-    res += "\n\n*" + "These are the current chat permissions:" + "*"
+    res += "\n\n*" + "Qrup icazələri aşağıdadır:" + "*"
     for x in permslist:
         res += "\n • {}".format(x)
     return res
@@ -563,7 +562,7 @@ def list_locks(update, context):
         if update.effective_message.chat.type == "private":
             send_message(
                 update.effective_message,
-                "This command is meant to use in group not in PM",
+                "Bu əmri qrupda işlədin",
             )
             return ""
         chat = update.effective_chat
@@ -571,7 +570,7 @@ def list_locks(update, context):
 
     res = build_lock_message(chat.id)
     if conn:
-        res = res.replace("Locks in", "*{}*".format(chat_name))
+        res = res.replace("*{}* qrupundakı kilidlər".format(chat_name))
 
     send_message(update.effective_message, res, parse_mode=ParseMode.MARKDOWN)
 
