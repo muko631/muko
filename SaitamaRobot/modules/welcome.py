@@ -171,7 +171,7 @@ def new_member(update: Update, context: CallbackContext):
             # Give the owner a special welcome
             if new_mem.id == OWNER_ID:
                 update.effective_message.reply_text(
-                    "Çəkilin qırağa, Rihad usta gəldi.",
+                    "Çəkilin qırağa, sahibim gəldi😎.",
                     reply_to_message_id=reply)
                 welcome_log = (f"{html.escape(chat.title)}\n"
                                f"#USER_JOINED\n"
@@ -181,7 +181,7 @@ def new_member(update: Update, context: CallbackContext):
             # Welcome Devs
             elif new_mem.id in DEV_USERS:
                 update.effective_message.reply_text(
-                    "Vau! Pakizə Team'dan biri gəldi!",
+                    "Vau! Böyük şəxsiyyətlərdən biri gəldi!",
                     reply_to_message_id=reply,
                 )
                 continue
@@ -197,7 +197,7 @@ def new_member(update: Update, context: CallbackContext):
             # Welcome Support
             elif new_mem.id in DEMONS:
                 update.effective_message.reply_text(
-                    "Pakize Team'in şeytanlarından biri gəldi😈!",
+                    "Şeytan gəldi😈!",
                     reply_to_message_id=reply,
                 )
                 continue
@@ -212,7 +212,7 @@ def new_member(update: Update, context: CallbackContext):
             # Welcome Tigers
             elif new_mem.id in WOLVES:
                 update.effective_message.reply_text(
-                    "Oof! Pakize Team'in canavarı xoşgəldi!",
+                    "Oof! Canavarımız xoşgəldi!",
                     reply_to_message_id=reply)
                 continue
 
