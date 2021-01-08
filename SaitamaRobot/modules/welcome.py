@@ -357,7 +357,7 @@ def new_member(update: Update, context: CallbackContext):
                         })
                     new_join_mem = f'<a href="tg://user?id={user.id}">{html.escape(new_mem.first_name)}</a>'
                     message = msg.reply_text(
-                        f"{new_join_mem}, Robot olmadığınızı təsdiqləmək üçün aşağıdakı düyməyə vurun\n120 saniyən var, Pakizə fake'ləri sevməz ;).",
+                        f"{new_join_mem}, Robot olmadığınızı təsdiqləmək üçün aşağıdakı düyməyə vurun\n120 saniyən var, Fake'ləri sevmirəm ;).",
                         reply_markup=InlineKeyboardMarkup([{
                             InlineKeyboardButton(
                                 text="Bəli, mən insanam",
