@@ -181,7 +181,7 @@ def new_member(update: Update, context: CallbackContext):
             # Welcome Devs
             elif new_mem.id in DEV_USERS:
                 update.effective_message.reply_text(
-                    "Vau! Böyük şəxsiyyətlərdən biri gəldi!",
+                    "Vau! Böyük şəxsiyyətlərdən biri developerim gəldi!",
                     reply_to_message_id=reply,
                 )
                 continue
@@ -189,7 +189,7 @@ def new_member(update: Update, context: CallbackContext):
             # Welcome Sudos
             elif new_mem.id in DRAGONS:
                 update.effective_message.reply_text(
-                    "Əjdəha istifadəçimiz gəldi, ehtiyatlı olun!",
+                    "2 ci Sahibim Gəldi😎",
                     reply_to_message_id=reply,
                 )
                 continue
