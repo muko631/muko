@@ -208,7 +208,7 @@ def start(update: Update, context: CallbackContext):
                      ]]))
     else:
         update.effective_message.reply_text(
-            "Mən oyağam!\n<b>Bu müddətdən bəri yatmıram:</b> <code>{}</code>"
+            "Salam Mən DTÖ NƏZARƏTÇİ Xidmətinizdəyəm!"
             .format(uptime),
             parse_mode=ParseMode.HTML)
 
