@@ -194,27 +194,17 @@ def start(update: Update, context: CallbackContext):
                 reply_markup=InlineKeyboardMarkup(
                     [[
                         InlineKeyboardButton(
-                            text="☑️ Pakizəni qruplarınıza əlavə edin",
+                            text="☑️ DTÖ botu qruplarınıza əlavə edin",
                             url="t.me/{}?startgroup=true".format(
                                 context.bot.username))
                     ],
                      [
                          InlineKeyboardButton(
-                             text="🚑 Dəstək Qrupu",
-                             url=f"https://t.me/{SUPPORT_CHAT}"),
+                             text="👨‍💻 Sahibim",
+                             url=f"https://t.me/bakinech"),
                          InlineKeyboardButton(
                              text="🔔 Yeniliklər kanalı",
-                             url="https://t.me/PakizeRobotInfo")
-                     ],
-                     [
-                         InlineKeyboardButton(
-                             text="🧾 Botla bağlı məlumat",
-                             url="https://t.me/PakizeRobotInfo")
-                     ],
-                     [
-                         InlineKeyboardButton(
-                             text="🗄 Repo",
-                             url="https://github.com/Mensimov/PakizeBot")
+                             url="https://t.me/DTONezaretNews")
                      ]]))
     else:
         update.effective_message.reply_text(
