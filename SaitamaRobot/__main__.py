@@ -52,13 +52,13 @@ def get_readable_time(seconds: int) -> str:
 
 PM_START_TEXT = """
 Salam {} necəsən? mənim adım {}! 
-Mən Azərbaycanca olan qrup idarə botuyam.
+Mən DTÖ Qruplarının Yaxud Sənin Qruplarıvı Qorumaq üçün Azərbaycanca Olan Qrup İdarə Botuyam!.
 Bütün əmrlər üçün klik et /help.
 """
 
 HELP_STRINGS = """
 Salamlar! Mənim adım *{}*.
-Mənimlə birlikdə qruplarınızı idarə edə bilərsiniz.
+Mənimlə birlikdə qruplarınızı idarə edə bilərsiniz!.
 
 *Əsas* əmrlər:
  • /help: Kömək menyusu.
@@ -205,6 +205,11 @@ def start(update: Update, context: CallbackContext):
                          InlineKeyboardButton(
                              text="🔔 Yeniliklər kanalı",
                              url="https://t.me/DTONezaretNews")
+                    ],
+                     [
+                         InlineKeyboardButton(
+                             text="🚑 Dəstək Qrupumuz",
+                             url=f"https://t.me/DTONezaretSupport")
                      ]]))
     else:
         update.effective_message.reply_text(
